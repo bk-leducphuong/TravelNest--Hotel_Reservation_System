@@ -1,0 +1,25 @@
+# Logstash Configuration
+# Node
+node.name: logstash-1
+
+# Pipeline settings
+pipeline.workers: 4
+pipeline.batch.size: 125
+pipeline.batch.delay: 50
+
+# Paths
+path.data: /usr/share/logstash/data
+path.logs: /usr/share/logstash/logs
+
+# HTTP API
+http.host: "0.0.0.0"
+http.port: 9600
+
+# Monitoring
+xpack.monitoring.enabled: true
+xpack.monitoring.elasticsearch.hosts: ["http://elasticsearch:9200"]
+xpack.monitoring.elasticsearch.username: "elastic"
+xpack.monitoring.elasticsearch.password: "admin123"
+
+# Log settings
+log.level: info

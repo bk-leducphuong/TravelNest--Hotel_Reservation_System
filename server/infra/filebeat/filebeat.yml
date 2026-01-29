@@ -1,0 +1,109 @@
+filebeat.inputs:
+  # Application logs
+  - type: log
+    enabled: true
+    paths:
+      - /logs/*.log
+      - /logs/**/*.log
+    fields:
+      service: travelnest-server
+      environment: production
+    fields_under_root: true
+    json.keys_under_root: true
+    json.add_error_key: true
+    multiline.pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}'
+    multiline.negate: true
+    multiline.match: after
+
+  # Error logs specifically
+  - type: log
+    enabled: true
+    paths:
+      - /logs/error.log
+    fields:
+      service: travelnest-server
+      log_type: error
+      environment: production
+    fields_under_root: true
+
+  # Access logs
+  - type: log
+    enabled: true
+    paths:
+      - /logs/access.log
+    fields:
+      service: travelnest-server
+      log_type: access
+      environment: production
+    fields_under_root: true
+
+  # Docker container logs
+  - type: container
+    enabled: true
+    paths:
+      - '/var/lib/docker/containers/*/*.log'
+    processors:
+      - add_docker_metadata:
+          host: 'unix:///var/run/docker.sock'
+
+# ============================== Filebeat modules ==============================
+filebeat.config.modules:
+  path: ${path.config}/modules.d/*.yml
+  reload.enabled: false
+
+# ============================= Processors =====================================
+processors:
+  - add_host_metadata:
+      when.not.contains.tags: forwarded
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+  - add_kubernetes_metadata: ~
+
+# ================================= General ====================================
+name: travelnest-filebeat
+tags: ['travelnest', 'production', 'nodejs']
+
+# ================================== Outputs ===================================
+
+# ------------------------------ Logstash Output -------------------------------
+output.logstash:
+  hosts: ['logstash:5044']
+
+  # Optional: Load balance between multiple Logstash hosts
+  # loadbalance: true
+
+  # Compression
+  compression_level: 3
+
+  # Worker threads
+  worker: 2
+
+  # Bulk settings
+  bulk_max_size: 2048
+
+# Alternative: Direct to Elasticsearch (bypass Logstash)
+# output.elasticsearch:
+#   hosts: ["elasticsearch:9200"]
+#   username: "elastic"
+#   password: "changeme"
+#   index: "travelnest-logs-%{+yyyy.MM.dd}"
+
+# =================================== Kibana ===================================
+setup.kibana:
+  host: 'kibana:5601'
+
+# ================================= Logging ====================================
+logging.level: info
+logging.to_files: true
+logging.files:
+  path: /var/log/filebeat
+  name: filebeat
+  keepfiles: 7
+  permissions: 0644
+
+# ================================= Monitoring =================================
+monitoring.enabled: true
+monitoring.elasticsearch:
+  hosts: ['elasticsearch:9200']
+  username: 'elastic'
+  password: 'admin123'

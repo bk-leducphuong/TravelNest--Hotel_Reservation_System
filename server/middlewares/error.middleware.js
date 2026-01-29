@@ -9,13 +9,37 @@ module.exports = (err, req, res, next) => {
     apiError = new ApiError(500, 'INTERNAL_ERROR', 'Internal server error');
   }
 
-  logger.error(
+  // Create request-specific logger
+  const requestLogger = logger.withRequest(req);
+
+  // Log error with structured data for ELK
+  requestLogger.error(
     {
-      err,
-      requestId: req.id,
-      path: req.originalUrl,
+      // Error details
+      errorCode: apiError.code,
+      errorMessage: apiError.message,
+      statusCode: apiError.statusCode,
+      stack: err.stack,
+
+      // Request details
+      method: req.method,
+      url: req.originalUrl,
+      query: req.query,
+      params: req.params,
+
+      // Additional context
+      isOperational: apiError.isOperational || false,
+      details: apiError.details,
+
+      // User context
+      userId: req.user?.id,
+      sessionId: req.sessionID,
+
+      // Client info
+      ip: req.ip || req.connection?.remoteAddress,
+      userAgent: req.get('user-agent'),
     },
-    err.message
+    `Error: ${err.message}`
   );
 
   // Format error response per RESTful standards

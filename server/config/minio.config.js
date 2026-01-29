@@ -1,14 +1,20 @@
 const Minio = require('minio');
-
-const minioClient = new Minio.Client({
-  endPoint: process.env.MINIO_ENDPOINT,
-  port: Number(process.env.MINIO_PORT),
-  useSSL: process.env.MINIO_USE_SSL === 'true',
-  accessKey: process.env.MINIO_ACCESS_KEY,
-  secretKey: process.env.MINIO_SECRET_KEY,
+require('dotenv').config({
+  path:
+    process.env.NODE_ENV === 'production'
+      ? '.env.production'
+      : '.env.development',
 });
 
-const bucketName = process.env.MINIO_BUCKET;
+const minioClient = new Minio.Client({
+  endPoint: process.env.MINIO_ENDPOINT || 'localhost',
+  port: Number(process.env.MINIO_PORT) || 9000,
+  useSSL: process.env.MINIO_USE_SSL === 'true',
+  accessKey: process.env.MINIO_ACCESS_KEY || 'minioadmin',
+  secretKey: process.env.MINIO_SECRET_KEY || 'minioadmin123',
+});
+
+const bucketName = process.env.MINIO_BUCKET || 'uploads';
 
 /**
  * Ensure bucket exists

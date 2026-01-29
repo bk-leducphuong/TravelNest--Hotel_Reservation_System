@@ -41,7 +41,7 @@ services:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin123
     volumes:
-      - ./minio-data:/data
+      - ../minio-data:/data
     networks:
       - travelnest-net
 

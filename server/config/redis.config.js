@@ -1,4 +1,10 @@
 const redis = require('redis');
+require('dotenv').config({
+  path:
+    process.env.NODE_ENV === 'production'
+      ? '.env.production'
+      : '.env.development',
+});
 
 // Connect to Redis Cloud
 const redisClient = redis.createClient({

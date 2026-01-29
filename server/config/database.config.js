@@ -1,10 +1,16 @@
+require('dotenv').config({
+  path:
+    process.env.NODE_ENV === 'production'
+      ? '.env.production'
+      : '.env.development',
+});
 const { Sequelize } = require('sequelize');
 
 // Create a Sequelize instance for ORM
 const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
+  process.env.DB_NAME || 'travelnest',
+  process.env.DB_USER || 'user',
+  process.env.DB_PASSWORD || '123',
   {
     host: process.env.DB_HOST || 'localhost',
     dialect: 'mysql',

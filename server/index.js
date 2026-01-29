@@ -21,6 +21,7 @@ const { initBucket } = require('@config/minio.config');
 const errorMiddleware = require('@middlewares/error.middleware.js');
 const limiter = require('@middlewares/rate-limitter.middleware');
 const sessionMiddleware = require('@middlewares/session.middleware');
+const requestLogger = require('@middlewares/request-logger.middleware');
 
 /*********************** Routes ************************/
 const v1Routes = require('@routes/v1/index.js');
@@ -63,6 +64,9 @@ const initServer = async () => {
   );
   app.use(bodyParser.json({ limit: '50mb' })); // create application/json parser
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: false })); // create application/x-www-form-urlencoded parser
+
+  // Request logging middleware (before other middlewares to capture all requests)
+  app.use(requestLogger);
 
   // Configure Session
   app.use(sessionMiddleware);

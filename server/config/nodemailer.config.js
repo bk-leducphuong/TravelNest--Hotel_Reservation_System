@@ -1,4 +1,10 @@
 const nodemailer = require('nodemailer');
+require('dotenv').config({
+  path:
+    process.env.NODE_ENV === 'production'
+      ? '.env.production'
+      : '.env.development',
+});
 
 // Email transporter configuration
 const transporter = nodemailer.createTransport({
