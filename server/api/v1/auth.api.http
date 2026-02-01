@@ -79,7 +79,7 @@ Content-Type: {{contentType}}
 
 ### Login (create session) - Partner
 
-POST {{baseUrl}}/api/auth/sessions HTTP/1.1
+POST {{baseUrl}}/api/v1/auth/sessions HTTP/1.1
 Content-Type: {{contentType}}
 
 {
@@ -224,7 +224,7 @@ Content-Type: {{contentType}}
 
 ### Should return 400 Bad Request
 
-POST {{baseUrl}}/api/auth/email/check HTTP/1.1
+POST {{baseUrl}}/api/v1/auth/email/check HTTP/1.1
 Content-Type: {{contentType}}
 
 {
@@ -250,12 +250,12 @@ Content-Type: {{contentType}}
 
 ### Register new customer
 
-POST {{baseUrl}}/api/auth/users HTTP/1.1
+POST {{baseUrl}}/api/v1/auth/users HTTP/1.1
 Content-Type: {{contentType}}
 
 {
   "email": "newuser@example.com",
-  "password": "password123",
+  "password": "123",
   "userRole": "customer"
 }
 

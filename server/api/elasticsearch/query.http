@@ -1,0 +1,780 @@
+@baseUrl = http://localhost:9200
+@contentType = application/json
+@credentials = ZWxhc3RpYzphZG1pbjEyMw==
+
+########################################
+# CLUSTER & INDEX MANAGEMENT
+########################################
+
+### Check Cluster Health
+GET {{baseUrl}}/_cluster/health?pretty
+Authorization: Basic {{credentials}}
+
+### List All Indices
+GET {{baseUrl}}/_cat/indices?v
+Authorization: Basic {{credentials}}
+
+### Get Index Stats for TravelNest Logs
+GET {{baseUrl}}/travelnest-logs-*/_stats?pretty
+Authorization: Basic {{credentials}}
+
+### Count Total Documents
+GET {{baseUrl}}/travelnest-logs-*/_count?pretty
+Authorization: Basic {{username}} {{password}}
+
+### Get Index Mapping
+GET {{baseUrl}}/travelnest-logs-*/_mapping?pretty
+Authorization: Basic {{username}} {{password}}
+
+########################################
+# BASIC SEARCH QUERIES
+########################################
+
+### Get Latest 20 Logs (All Levels)
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{credentials}}
+
+{
+  "size": 20,
+  "sort": [
+    { "@timestamp": { "order": "desc" } }
+  ],
+  "query": {
+    "match_all": {}
+  }
+}
+
+### Get Logs from Last Hour
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{credentials}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "range": {
+      "@timestamp": {
+        "gte": "now-1h"
+      }
+    }
+  }
+}
+
+### Get Logs from Last 24 Hours
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 100,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "range": {
+      "@timestamp": {
+        "gte": "now-24h"
+      }
+    }
+  }
+}
+
+### Get Logs for Specific Date Range
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 100,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "range": {
+      "@timestamp": {
+        "gte": "2026-02-01T00:00:00",
+        "lte": "2026-02-01T23:59:59"
+      }
+    }
+  }
+}
+
+########################################
+# ERROR & LOG LEVEL QUERIES
+########################################
+
+### Get All Error Logs (Level 50 = Error)
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{credentials}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "term": { "level": 50 } }
+      ]
+    }
+  }
+}
+
+### Get All Warning Logs (Level 40 = Warn)
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "term": { "level": 40 } }
+      ]
+    }
+  }
+}
+
+### Get Errors from Last Hour
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "term": { "level": 50 } },
+        { "range": { "@timestamp": { "gte": "now-1h" } } }
+      ]
+    }
+  }
+}
+
+### Search Errors by Message Content
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 20,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "must": [
+        { "match": { "msg": "validation" } }
+      ],
+      "filter": [
+        { "term": { "level": 50 } }
+      ]
+    }
+  }
+}
+
+### Count Errors by Severity
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 0,
+  "query": {
+    "range": { "@timestamp": { "gte": "now-24h" } }
+  },
+  "aggs": {
+    "by_severity": {
+      "terms": {
+        "field": "severity.keyword",
+        "size": 10
+      }
+    }
+  }
+}
+
+########################################
+# REQUEST/RESPONSE QUERIES
+########################################
+
+### Get All HTTP Requests
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "must": [
+        { "exists": { "field": "method" } }
+      ]
+    }
+  }
+}
+
+### Get Failed Requests (4xx and 5xx)
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "range": { "statusCode": { "gte": 400 } } }
+      ]
+    }
+  }
+}
+
+### Get 500 Internal Server Errors
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "range": { "statusCode": { "gte": 500, "lt": 600 } } }
+      ]
+    }
+  }
+}
+
+### Get Slow Requests (Response Time > 1000ms)
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "responseTime": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "range": { "responseTime": { "gt": 1000 } } }
+      ]
+    }
+  }
+}
+
+### Get Requests by Method (e.g., POST)
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "term": { "method.keyword": "POST" } }
+      ]
+    }
+  }
+}
+
+### Get Requests to Specific Endpoint
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "wildcard": { "url.keyword": "*auth/users*" } }
+      ]
+    }
+  }
+}
+
+########################################
+# REQUEST ID & SESSION TRACKING
+########################################
+
+### Search by Request ID
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "asc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "term": { "requestId.keyword": "a67d2e17-5342-4ffa-b461-5ada0aecafbd" } }
+      ]
+    }
+  }
+}
+
+### Search by Session ID
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "asc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "term": { "sessionId.keyword": "your-session-id" } }
+      ]
+    }
+  }
+}
+
+### Search by User ID
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "term": { "userId.keyword": "user123" } }
+      ]
+    }
+  }
+}
+
+########################################
+# AGGREGATIONS & ANALYTICS
+########################################
+
+### Count Requests by Status Code
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 0,
+  "query": {
+    "range": { "@timestamp": { "gte": "now-24h" } }
+  },
+  "aggs": {
+    "status_codes": {
+      "terms": {
+        "field": "statusCode",
+        "size": 20,
+        "order": { "_count": "desc" }
+      }
+    }
+  }
+}
+
+### Count Requests by HTTP Method
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 0,
+  "query": {
+    "range": { "@timestamp": { "gte": "now-24h" } }
+  },
+  "aggs": {
+    "by_method": {
+      "terms": {
+        "field": "method.keyword",
+        "size": 10
+      }
+    }
+  }
+}
+
+### Top 10 Most Accessed Endpoints
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 0,
+  "query": {
+    "range": { "@timestamp": { "gte": "now-24h" } }
+  },
+  "aggs": {
+    "top_endpoints": {
+      "terms": {
+        "field": "url.keyword",
+        "size": 10,
+        "order": { "_count": "desc" }
+      }
+    }
+  }
+}
+
+### Average Response Time by Endpoint
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "filter": [
+        { "exists": { "field": "responseTime" } },
+        { "range": { "@timestamp": { "gte": "now-24h" } } }
+      ]
+    }
+  },
+  "aggs": {
+    "by_endpoint": {
+      "terms": {
+        "field": "url.keyword",
+        "size": 20
+      },
+      "aggs": {
+        "avg_response_time": {
+          "avg": { "field": "responseTime" }
+        },
+        "max_response_time": {
+          "max": { "field": "responseTime" }
+        },
+        "min_response_time": {
+          "min": { "field": "responseTime" }
+        }
+      }
+    }
+  }
+}
+
+### Error Rate Over Time (Hourly)
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "filter": [
+        { "term": { "level": 50 } },
+        { "range": { "@timestamp": { "gte": "now-7d" } } }
+      ]
+    }
+  },
+  "aggs": {
+    "errors_over_time": {
+      "date_histogram": {
+        "field": "@timestamp",
+        "calendar_interval": "1h",
+        "format": "yyyy-MM-dd HH:mm"
+      }
+    }
+  }
+}
+
+### Requests Per Minute (Last Hour)
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "filter": [
+        { "exists": { "field": "method" } },
+        { "range": { "@timestamp": { "gte": "now-1h" } } }
+      ]
+    }
+  },
+  "aggs": {
+    "requests_per_minute": {
+      "date_histogram": {
+        "field": "@timestamp",
+        "fixed_interval": "1m",
+        "format": "HH:mm"
+      }
+    }
+  }
+}
+
+### Count Errors by Error Code
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "filter": [
+        { "term": { "level": 50 } },
+        { "range": { "@timestamp": { "gte": "now-24h" } } }
+      ]
+    }
+  },
+  "aggs": {
+    "by_error_code": {
+      "terms": {
+        "field": "errorCode.keyword",
+        "size": 20
+      }
+    }
+  }
+}
+
+### Response Time Percentiles
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "filter": [
+        { "exists": { "field": "responseTime" } },
+        { "range": { "@timestamp": { "gte": "now-24h" } } }
+      ]
+    }
+  },
+  "aggs": {
+    "response_time_percentiles": {
+      "percentiles": {
+        "field": "responseTime",
+        "percents": [50, 75, 90, 95, 99]
+      }
+    }
+  }
+}
+
+########################################
+# ADVANCED QUERIES
+########################################
+
+### Get All Logs with Stack Traces
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 20,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "must": [
+        { "exists": { "field": "stack" } }
+      ]
+    }
+  }
+}
+
+### Search Logs by IP Address
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "term": { "ip.keyword": "::1" } }
+      ]
+    }
+  }
+}
+
+### Search by User Agent
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "must": [
+        { "match": { "userAgent": "kulala" } }
+      ]
+    }
+  }
+}
+
+### Full-Text Search Across All Fields
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 20,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "multi_match": {
+      "query": "validation error",
+      "fields": ["msg", "errorMessage", "stack"],
+      "type": "best_fields"
+    }
+  }
+}
+
+### Complex Query: Failed Auth Attempts
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "must": [
+        { "wildcard": { "url.keyword": "*auth*" } }
+      ],
+      "filter": [
+        { "range": { "statusCode": { "gte": 400 } } },
+        { "range": { "@timestamp": { "gte": "now-24h" } } }
+      ]
+    }
+  }
+}
+
+### Get Unique Users Activity
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 0,
+  "query": {
+    "range": { "@timestamp": { "gte": "now-24h" } }
+  },
+  "aggs": {
+    "unique_users": {
+      "cardinality": {
+        "field": "userId.keyword"
+      }
+    },
+    "unique_ips": {
+      "cardinality": {
+        "field": "ip.keyword"
+      }
+    },
+    "unique_sessions": {
+      "cardinality": {
+        "field": "sessionId.keyword"
+      }
+    }
+  }
+}
+
+########################################
+# MONITORING & HEALTH QUERIES
+########################################
+
+### Overall System Health (Last 24h)
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 0,
+  "query": {
+    "range": { "@timestamp": { "gte": "now-24h" } }
+  },
+  "aggs": {
+    "total_requests": {
+      "filter": { "exists": { "field": "method" } }
+    },
+    "total_errors": {
+      "filter": { "term": { "level": 50 } }
+    },
+    "avg_response_time": {
+      "avg": { "field": "responseTime" }
+    },
+    "status_breakdown": {
+      "terms": {
+        "field": "statusCode",
+        "size": 10
+      }
+    }
+  }
+}
+
+### Application Startup Logs
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 20,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "should": [
+        { "match": { "msg": "Database connected" } },
+        { "match": { "msg": "Server running" } },
+        { "match": { "msg": "Redis" } }
+      ]
+    }
+  }
+}
+
+### Get All Logs by Hostname
+POST {{baseUrl}}/travelnest-logs-*/_search
+Content-Type: {{contentType}}
+Authorization: Basic {{username}} {{password}}
+
+{
+  "size": 50,
+  "sort": [{ "@timestamp": { "order": "desc" } }],
+  "query": {
+    "bool": {
+      "filter": [
+        { "term": { "hostname.keyword": "leducphuong" } }
+      ]
+    }
+  }
+}
+
+########################################
+# INDEX MANAGEMENT
+########################################
+
+### Delete Old Indices (7 days old)
+# DELETE {{baseUrl}}/travelnest-logs-2026.01.25
+# Authorization: Basic {{username}} {{password}}
+
+### Create Index Alias
+# POST {{baseUrl}}/_aliases
+# Content-Type: {{contentType}}
+# Authorization: Basic {{username}} {{password}}
+# 
+# {
+#   "actions": [
+#     {
+#       "add": {
+#         "index": "travelnest-logs-*",
+#         "alias": "travelnest-logs-latest"
+#       }
+#     }
+#   ]
+# }
+
+### Force Merge Old Indices (for performance)
+# POST {{baseUrl}}/travelnest-logs-2026.01.*/_forcemerge?max_num_segments=1
+# Authorization: Basic {{username}} {{password}}
+
+###
