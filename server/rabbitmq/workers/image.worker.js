@@ -4,13 +4,13 @@ require('dotenv').config({
       ? '.env.production'
       : '.env.development',
 });
-const { createRetryingConsumer } = require('@kafka/index');
+const { createRetryingConsumer } = require('@rabbitmq/index');
 const imageRepository = require('@repositories/image.repository');
 const { getObject, uploadObject } = require('@utils/minio.utils');
 const logger = require('@config/logger.config');
 const sharp = require('sharp');
 const { uuidv7 } = require('uuidv7');
-const { topicFor } = require('@kafka/topics');
+const { queueFor } = require('@rabbitmq/queues');
 
 // Image variant configurations
 const IMAGE_VARIANTS = {
@@ -19,7 +19,8 @@ const IMAGE_VARIANTS = {
   medium: { width: 800, height: 800, quality: 90 },
   large: { width: 1920, height: 1920, quality: 95 },
 };
-const TOPIC = topicFor('imageProcessing');
+
+const QUEUE = queueFor('imageProcessing');
 
 /**
  * Resize image using Sharp
@@ -43,11 +44,10 @@ async function resizeImage(imageBuffer, config, format) {
 
 /**
  * Process image: download from MinIO, generate variants, save to database
- * @param {object} message - Kafka message containing imageId, bucket, objectKey, etc.
+ * @param {object} message - Message containing imageId, bucket, objectKey, etc.
  */
 async function processImage(message) {
-  const { imageId, bucket, objectKey, mimeType, entityType, entityId } =
-    message;
+  const { imageId, bucket, objectKey, mimeType, entityType, entityId } = message;
 
   logger.info(`Starting image processing for imageId: ${imageId}`, {
     bucket,
@@ -163,37 +163,30 @@ async function processImage(message) {
 }
 
 /**
- * Kafka consumer for image processing
- * Subscribes to 'image.processing' topic and processes images
+ * RabbitMQ consumer for image processing
+ * Subscribes to 'image.processing' queue and processes images
  */
 const imageProcessingConsumer = createRetryingConsumer({
-  baseTopic: TOPIC,
-  groupId: process.env.KAFKA_IMAGE_PROCESSING_GROUP || 'image-processing-group',
+  baseQueue: QUEUE,
+  consumerTag:
+    process.env.RABBITMQ_IMAGE_PROCESSING_CONSUMER || 'image-processing-consumer',
   retry: {
-    maxRetries: Number(process.env.KAFKA_IMAGE_PROCESSING_MAX_RETRIES || 5),
+    maxRetries: Number(process.env.RABBITMQ_IMAGE_PROCESSING_MAX_RETRIES || 5),
     delayMs: Number(
-      process.env.KAFKA_IMAGE_PROCESSING_RETRY_DELAY_MS || 60_000
+      process.env.RABBITMQ_IMAGE_PROCESSING_RETRY_DELAY_MS || 60_000
     ),
   },
-  handler: async ({
-    value,
-    key,
-    headers,
-    topic,
-    partition,
-    offset,
-    rawMessage,
-  }) => {
+  channelName: 'image-processing',
+  handler: async ({ value, headers, properties, queue }) => {
     if (!value) {
-      logger.error('Empty message received', { topic, partition, offset });
+      logger.error('Empty message received', { queue });
       throw new Error('Empty message');
     }
 
-    logger.info('Processing image from Kafka message', {
+    logger.info('Processing image from RabbitMQ message', {
       imageId: value.imageId,
-      topic,
-      partition,
-      offset,
+      queue,
+      messageId: properties.messageId,
     });
 
     await processImage(value);

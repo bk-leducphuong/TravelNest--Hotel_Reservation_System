@@ -1,11 +1,10 @@
 const snapshotRepo = require('@repositories/hotel_search_snapshot.repository');
-const { Kafka } = require('kafkajs');
 const logger = require('@config/logger.config');
 const elasticsearchClient = require('@config/elasticsearch.config');
-const { topicFor } = require('@kafka/topics');
+const { queueFor } = require('@rabbitmq/queues');
 
 /**
- * Hotel Search Snapshot Kafka Worker
+ * Hotel Search Snapshot RabbitMQ Worker
  *
  * Processes events to update hotel search snapshots and sync to Elasticsearch
  *
@@ -19,7 +18,7 @@ const { topicFor } = require('@kafka/topics');
  * - hotel.viewed: Increment view count
  */
 
-const TOPIC = topicFor('hotelSearchSnapshot');
+const QUEUE = queueFor('hotelSearchSnapshot');
 const MAX_ELASTICSEARCH_RETRIES = 5;
 
 /**
@@ -218,9 +217,8 @@ const handleFullRefresh = async (payload) => {
 /**
  * Main message processor
  */
-const processMessage = async (message) => {
+const processMessage = async (payload) => {
   try {
-    const payload = JSON.parse(message.value.toString());
     const eventType = payload.eventType;
 
     logger.info(`[Worker] Processing event: ${eventType}`, payload);
@@ -277,38 +275,35 @@ const processMessage = async (message) => {
 };
 
 /**
- * Kafka consumer for hotel search snapshot updates
- * Subscribes to 'hotel-search-snapshot-events' topic
+ * RabbitMQ consumer for hotel search snapshot updates
+ * Subscribes to 'hotel-search-snapshot-events' queue
  */
 const { createRetryingConsumer } = require('../retryingConsumer');
 
 const hotelSearchSnapshotConsumer = createRetryingConsumer({
-  baseTopic: TOPIC,
-  groupId:
-    process.env.KAFKA_HOTEL_SNAPSHOT_GROUP || 'hotel-search-snapshot-worker',
+  baseQueue: QUEUE,
+  consumerTag:
+    process.env.RABBITMQ_HOTEL_SNAPSHOT_CONSUMER ||
+    'hotel-search-snapshot-consumer',
   retry: {
-    maxRetries: Number(process.env.KAFKA_HOTEL_SNAPSHOT_MAX_RETRIES || 5),
-    delayMs: Number(process.env.KAFKA_HOTEL_SNAPSHOT_RETRY_DELAY_MS || 30_000),
+    maxRetries: Number(process.env.RABBITMQ_HOTEL_SNAPSHOT_MAX_RETRIES || 5),
+    delayMs: Number(process.env.RABBITMQ_HOTEL_SNAPSHOT_RETRY_DELAY_MS || 30_000),
   },
-  handler: async ({ value, key, headers, topic, partition, offset }) => {
+  channelName: 'hotel-snapshot',
+  handler: async ({ value, headers, properties, queue }) => {
     if (!value) {
-      logger.error('Empty message received', {
-        topic,
-        partition,
-        offset,
-      });
+      logger.error('Empty message received', { queue });
       throw new Error('Empty message');
     }
 
-    logger.info('Processing hotel snapshot event from Kafka', {
+    logger.info('Processing hotel snapshot event from RabbitMQ', {
       eventType: value.eventType,
       hotelId: value.hotelId,
-      topic,
-      partition,
-      offset,
+      queue,
+      messageId: properties.messageId,
     });
 
-    await processMessage({ value: JSON.stringify(value) });
+    await processMessage(value);
   },
 });
 

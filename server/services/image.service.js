@@ -1,5 +1,5 @@
 const imageRepository = require('@repositories/image.repository');
-const { publishToQueue } = require('@utils/kafka.utils');
+const { publishToQueue } = require('@utils/rabbitmq.utils');
 const {
   getBucketName,
   uploadObject,
@@ -108,12 +108,9 @@ class ImageService {
       if (error instanceof ApiError) {
         throw error;
       }
-      throw new ApiError(
-        500,
-        'UPLOAD_FAILED',
-        'Failed to upload image',
-        { originalError: error.message }
-      );
+      throw new ApiError(500, 'UPLOAD_FAILED', 'Failed to upload image', {
+        originalError: error.message,
+      });
     }
   }
 
@@ -194,12 +191,9 @@ class ImageService {
       if (error instanceof ApiError) {
         throw error;
       }
-      throw new ApiError(
-        500,
-        'GET_IMAGES_FAILED',
-        'Failed to get images',
-        { originalError: error.message }
-      );
+      throw new ApiError(500, 'GET_IMAGES_FAILED', 'Failed to get images', {
+        originalError: error.message,
+      });
     }
   }
 
@@ -246,12 +240,10 @@ class ImageService {
       if (error instanceof ApiError) {
         throw error;
       }
-      throw new ApiError(
-        500,
-        'DELETE_IMAGE_FAILED',
-        'Failed to delete image',
-        { imageId, originalError: error.message }
-      );
+      throw new ApiError(500, 'DELETE_IMAGE_FAILED', 'Failed to delete image', {
+        imageId,
+        originalError: error.message,
+      });
     }
   }
 

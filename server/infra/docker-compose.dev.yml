@@ -59,77 +59,44 @@ services:
     networks:
       - travelnest-net
 
-  zookeeper:
-    image: confluentinc/cp-zookeeper:7.6.1
-    container_name: travelnest-zookeeper
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: travelnest-rabbitmq
     restart: unless-stopped
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - '2181:2181'
-    networks:
-      - travelnest-net
-
-  kafka:
-    image: confluentinc/cp-kafka:7.6.1
-    container_name: travelnest-kafka
-    restart: unless-stopped
-    depends_on:
-      - zookeeper
-    ports:
-      - '9092:9092'
-      - '29092:29092'
+      - '5672:5672' # AMQP port
+      - '15672:15672' # Management UI
     environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:29092,PLAINTEXT_HOST://0.0.0.0:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS:-guest}
+      RABBITMQ_DEFAULT_VHOST: /
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
     networks:
       - travelnest-net
     healthcheck:
-      test:
-        ['CMD-SHELL', 'kafka-topics --bootstrap-server localhost:9092 --list']
-      interval: 10s
-      timeout: 5s
+      test: ['CMD-SHELL', 'rabbitmq-diagnostics -q ping']
+      interval: 30s
+      timeout: 10s
       retries: 5
 
-  # kafka-consumer:
+  # rabbitmq-consumer:
   #   build:
   #     context: ..
   #     dockerfile: infra/Dockerfile.dev
   #     args:
   #       ENV_FILE: .env.development
-  #   container_name: travelnest-kafka-consumer
+  #   container_name: travelnest-rabbitmq-consumer
   #   restart: unless-stopped
   #   depends_on:
-  #     kafka:
+  #     rabbitmq:
   #       condition: service_healthy
-  #   command: ['node', 'kafka/worker.js']
+  #   command: ['node', 'rabbitmq/worker.js']
   #   environment:
   #     NODE_ENV: development
-  #     KAFKA_CLIENT_ID: my-kafka
-  #     KAFKA_BROKERS: kafka:9092
+  #     RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
   #   networks:
   #     - travelnest-net
-
-  kafka-ui:
-    image: provectuslabs/kafka-ui:latest
-    container_name: travelnest-kafka-ui
-    restart: unless-stopped
-    depends_on:
-      - kafka
-    ports:
-      - '8080:8080'
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
-      KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
-    networks:
-      - travelnest-net
 
 networks:
   travelnest-net:
@@ -138,3 +105,4 @@ networks:
 volumes:
   mysql_data:
   redis_data:
+  rabbitmq_data:
