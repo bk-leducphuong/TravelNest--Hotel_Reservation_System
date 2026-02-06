@@ -126,21 +126,18 @@ module.exports = function (sequelize, DataTypes) {
   );
 
   Amenity.associate = function (models) {
-    // Amenity can be used by many hotels through hotel_amenities
-    Amenity.belongsToMany(models.hotels, {
-      through: models.hotel_amenities,
-      foreignKey: 'amenity_id',
-      otherKey: 'hotel_id',
-      as: 'hotels',
-    });
-    // Amenity can be used by many rooms through room_amenities
     Amenity.belongsToMany(models.rooms, {
       through: models.room_amenities,
       foreignKey: 'amenity_id',
       otherKey: 'room_id',
       as: 'rooms',
     });
+    Amenity.belongsToMany(models.hotels, {
+      through: models.hotel_amenities,
+      foreignKey: 'amenity_id',
+      otherKey: 'hotel_id',
+      as: 'hotels',
+    });
   };
-
   return Amenity;
 };

@@ -22,9 +22,14 @@ fs.readdirSync(__dirname)
     db[pascalCaseName] = model;
   });
 
+const associatedModels = new Set();
+
 Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+  const model = db[modelName];
+  // Only call associate once per model instance (not per alias)
+  if (model.associate && !associatedModels.has(model)) {
+    model.associate(db);
+    associatedModels.add(model);
   }
 });
 

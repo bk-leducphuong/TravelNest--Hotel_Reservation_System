@@ -41,14 +41,6 @@ const initServer = async () => {
   // Allow nginx proxy'
   // app.set("trust proxy", 1);
 
-  // stripe webhook endpoint
-  // const { webhookController } = require("./controllers/webhookController.js"); // inside webhookController I have print "hello 2"
-  // app.post(
-  //   "/stripe/webhook",
-  //   bodyParser.raw({ type: "application/json" }),
-  //   webhookController,
-  // );
-
   // Socket io
   const server = http.createServer(app);
   initSocket(server);
@@ -62,6 +54,17 @@ const initServer = async () => {
       credentials: true,
     })
   );
+
+  // Webhook routes - MUST come before bodyParser.json() for raw body access
+  // Webhooks need raw body for signature verification
+  const webhookRoutes = require('@routes/v1/webhook.routes.js');
+  app.use(
+    '/api/v1/webhooks',
+    bodyParser.raw({ type: 'application/json' }),
+    webhookRoutes
+  );
+
+  // Regular JSON parsing for all other routes
   app.use(bodyParser.json({ limit: '50mb' })); // create application/json parser
   app.use(bodyParser.urlencoded({ limit: '50mb', extended: false })); // create application/x-www-form-urlencoded parser
 

@@ -231,11 +231,6 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'hotel_id',
       as: 'search_snapshot',
     });
-    // Association with hotel_amenities junction table
-    Hotel.hasMany(models.hotel_amenities, {
-      foreignKey: 'hotel_id',
-      as: 'hotel_amenities',
-    });
     // Many-to-many relationship with amenities through hotel_amenities
     Hotel.belongsToMany(models.amenities, {
       through: models.hotel_amenities,

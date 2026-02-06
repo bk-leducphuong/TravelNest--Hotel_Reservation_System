@@ -105,24 +105,31 @@ module.exports = function (sequelize, DataTypes) {
   User.associate = function (models) {
     User.hasMany(models.bookings, {
       foreignKey: 'buyer_id',
+      as: 'user_bookings', // Explicit alias to avoid conflicts
     });
     User.hasMany(models.hotels, {
       foreignKey: 'owner_id',
+      as: 'owned_hotels', // Explicit alias
     });
     User.hasMany(models.notifications, {
       foreignKey: 'sender_id',
+      as: 'sent_notifications', // Explicit alias
     });
     User.hasMany(models.refunds, {
       foreignKey: 'buyer_id',
+      as: 'user_refunds', // Explicit alias to avoid conflicts
     });
     User.hasMany(models.reviews, {
       foreignKey: 'user_id',
+      as: 'user_reviews', // Explicit alias
     });
     User.hasMany(models.saved_hotels, {
       foreignKey: 'user_id',
+      as: 'saved_hotels_list', // Explicit alias
     });
     User.hasMany(models.viewed_hotels, {
       foreignKey: 'user_id',
+      as: 'viewed_hotels_list', // Explicit alias
     });
   };
 

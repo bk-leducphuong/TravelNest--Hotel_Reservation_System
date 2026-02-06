@@ -43,7 +43,9 @@
     "@services": "services",
     "@rabbitmq": "rabbitmq",
     "@socket": "socket",
-    "@utils": "utils"
+    "@utils": "utils",
+    "@interfaces": "interfaces",
+    "@adapters": "adapters"
   },
   "author": "Le Duc Phuong",
   "license": "ISC",

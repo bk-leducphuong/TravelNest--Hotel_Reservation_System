@@ -165,7 +165,7 @@ module.exports = function (sequelize, DataTypes) {
     });
     Transaction.belongsTo(models.users, {
       foreignKey: 'buyer_id',
-      as: 'buyer',
+      as: 'transaction_buyer', // Changed from 'buyer' to avoid conflict with Booking.buyer
     });
     Transaction.belongsTo(models.hotels, {
       foreignKey: 'hotel_id',

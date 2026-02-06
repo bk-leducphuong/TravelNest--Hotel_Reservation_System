@@ -125,11 +125,6 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'room_id',
       as: 'inventory',
     });
-    // Association with room_amenities junction table
-    Room.hasMany(models.room_amenities, {
-      foreignKey: 'room_id',
-      as: 'room_amenities',
-    });
     // Many-to-many relationship with amenities through room_amenities
     Room.belongsToMany(models.amenities, {
       through: models.room_amenities,
