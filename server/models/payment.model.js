@@ -1,46 +1,100 @@
 const Sequelize = require('sequelize');
+const { uuidv7 } = require('uuidv7');
+
 module.exports = function (sequelize, DataTypes) {
   const Payment = sequelize.define(
     'payments',
     {
-      payment_id: {
-        autoIncrement: true,
-        type: DataTypes.INTEGER,
+      id: {
+        type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true,
+        defaultValue: () => uuidv7(),
       },
       transaction_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         allowNull: false,
         references: {
           model: 'transactions',
-          key: 'transaction_id',
+          key: 'id',
         },
-      },
-      payment_method: {
-        type: DataTypes.STRING(50),
-        allowNull: true,
-      },
-      payment_status: {
-        type: DataTypes.ENUM('pending', 'success', 'failed'),
-        allowNull: false,
       },
       amount: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
       },
       currency: {
-        type: DataTypes.STRING(10),
+        type: DataTypes.STRING(3),
         allowNull: false,
+        defaultValue: 'USD',
+      },
+      payment_method: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        comment: 'e.g., card, bank_transfer, wallet',
+      },
+      payment_status: {
+        type: DataTypes.ENUM(
+          'pending',
+          'processing',
+          'succeeded',
+          'failed',
+          'cancelled',
+          'refunded'
+        ),
+        allowNull: false,
+        defaultValue: 'pending',
+      },
+      stripe_payment_method_id: {
+        type: DataTypes.STRING(255),
+        allowNull: true,
+      },
+      card_brand: {
+        type: DataTypes.STRING(50),
+        allowNull: true,
+        comment: 'e.g., visa, mastercard, amex',
+      },
+      card_last4: {
+        type: DataTypes.STRING(4),
+        allowNull: true,
+      },
+      card_exp_month: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      card_exp_year: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
+      failure_code: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+      },
+      failure_message: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
+      receipt_url: {
+        type: DataTypes.STRING(500),
+        allowNull: true,
+      },
+      metadata: {
+        type: DataTypes.JSON,
+        allowNull: true,
+      },
+      created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       paid_at: {
         type: DataTypes.DATE,
         allowNull: true,
-      },
-      updated_at: {
-        type: DataTypes.DATE,
-        allowNull: true,
-        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
     },
     {
@@ -52,12 +106,22 @@ module.exports = function (sequelize, DataTypes) {
           name: 'PRIMARY',
           unique: true,
           using: 'BTREE',
-          fields: [{ name: 'payment_id' }],
+          fields: [{ name: 'id' }],
         },
         {
           name: 'transaction_id',
           using: 'BTREE',
           fields: [{ name: 'transaction_id' }],
+        },
+        {
+          name: 'payment_status',
+          using: 'BTREE',
+          fields: [{ name: 'payment_status' }],
+        },
+        {
+          name: 'stripe_payment_method_id',
+          using: 'BTREE',
+          fields: [{ name: 'stripe_payment_method_id' }],
         },
       ],
     }
@@ -66,6 +130,7 @@ module.exports = function (sequelize, DataTypes) {
   Payment.associate = function (models) {
     Payment.belongsTo(models.transactions, {
       foreignKey: 'transaction_id',
+      as: 'transaction',
     });
   };
 
