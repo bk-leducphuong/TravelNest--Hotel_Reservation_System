@@ -129,8 +129,8 @@ class JoinService {
       return {
         room_id: roomId,
         date: date.toISOString().split('T')[0], // YYYY-MM-DD format
-        total_inventory: numberOfRooms,
-        total_reserved: 0,
+        total_rooms: numberOfRooms,
+        booked_rooms: 0,
         price_per_night: 0,
         status: 'open',
       };

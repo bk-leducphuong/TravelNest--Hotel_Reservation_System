@@ -201,7 +201,7 @@ class AdminRoomRepository {
 
     const inventories = await RoomInventories.findAll({
       where,
-      attributes: ['total_inventory', 'total_reserved', 'price_per_night'],
+      attributes: ['total_rooms', 'booked_rooms', 'price_per_night'],
     });
 
     const totalDays = inventories.length;
@@ -212,12 +212,12 @@ class AdminRoomRepository {
       ) / totalDays || 0;
 
     const totalReserved = inventories.reduce(
-      (sum, inv) => sum + parseInt(inv.total_reserved || 0),
+      (sum, inv) => sum + parseInt(inv.booked_rooms || 0),
       0
     );
 
     const totalInventory = inventories.reduce(
-      (sum, inv) => sum + parseInt(inv.total_inventory || 0),
+      (sum, inv) => sum + parseInt(inv.total_rooms || 0),
       0
     );
 

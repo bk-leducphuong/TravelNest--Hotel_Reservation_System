@@ -49,7 +49,7 @@ class SearchRepository {
       GROUP BY 
         h.hotel_id, h.name, h.address, h.city, h.overall_rating, h.hotel_class, h.image_urls, 
         h.latitude, h.longitude, r.room_id, ri.price_per_night, r.max_guests, r.room_name
-      HAVING COUNT(CASE WHEN ri.total_inventory - ri.total_reserved >= ? THEN 1 END) = ?
+      HAVING COUNT(CASE WHEN ri.total_rooms - ri.booked_rooms >= ? THEN 1 END) = ?
     `;
 
     return await sequelize.query(query, {

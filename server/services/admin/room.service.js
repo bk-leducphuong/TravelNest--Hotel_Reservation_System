@@ -1,6 +1,10 @@
 const adminRoomRepository = require('../../repositories/admin/room.repository');
 const ApiError = require('../../utils/ApiError');
-const { minioClient, bucketName, getObjectUrl } = require('../../config/minio.config');
+const {
+  minioClient,
+  bucketName,
+  getObjectUrl,
+} = require('../../config/minio.config');
 const sharp = require('sharp');
 
 /**
@@ -91,8 +95,8 @@ class AdminRoomService {
       inventoryEntries.push({
         room_id: newRoom.id,
         date: date,
-        total_inventory: quantity,
-        total_reserved: 0,
+        total_rooms: quantity,
+        booked_rooms: 0,
         price_per_night: 0,
         status: 'open',
       });
@@ -161,9 +165,7 @@ class AdminRoomService {
   async getRoomPhotos(roomId, ownerId) {
     const room = await this.verifyRoomAccess(roomId, ownerId);
 
-    const imageUrls = room.image_urls
-      ? JSON.parse(room.image_urls)
-      : [];
+    const imageUrls = room.image_urls ? JSON.parse(room.image_urls) : [];
 
     return {
       roomId: room.id,
@@ -205,9 +207,7 @@ class AdminRoomService {
     );
 
     // Update room image URLs
-    const currentImageUrls = room.image_urls
-      ? JSON.parse(room.image_urls)
-      : [];
+    const currentImageUrls = room.image_urls ? JSON.parse(room.image_urls) : [];
     const newImageUrls = [...currentImageUrls, ...uploadedUrls];
 
     await adminRoomRepository.updateImageUrls(
@@ -233,9 +233,7 @@ class AdminRoomService {
     }
 
     // Get current image URLs
-    const currentImageUrls = room.image_urls
-      ? JSON.parse(room.image_urls)
-      : [];
+    const currentImageUrls = room.image_urls ? JSON.parse(room.image_urls) : [];
 
     // Remove the specified URLs
     const newImageUrls = currentImageUrls.filter(
@@ -283,9 +281,7 @@ class AdminRoomService {
       throw new ApiError(404, 'HOTEL_NOT_FOUND', 'Hotel not found');
     }
 
-    const imageUrls = hotel.image_urls
-      ? JSON.parse(hotel.image_urls)
-      : [];
+    const imageUrls = hotel.image_urls ? JSON.parse(hotel.image_urls) : [];
 
     return {
       hotelId: hotel.id,
@@ -453,7 +449,7 @@ class AdminRoomService {
         updateData.status = inventory.status;
       }
       if (inventory.totalReserved !== undefined) {
-        updateData.total_reserved = inventory.totalReserved;
+        updateData.booked_rooms = inventory.totalReserved;
       }
 
       // Extract date (remove time portion)

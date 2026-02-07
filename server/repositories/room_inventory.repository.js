@@ -93,8 +93,8 @@ class RoomInventoryRepository {
         {
           room_id: data.roomId,
           date: dateStr,
-          total_inventory: data.totalInventory,
-          total_reserved: data.totalReserved || 0,
+          total_rooms: data.totalInventory,
+          booked_rooms: data.totalReserved || 0,
           price_per_night: data.pricePerNight,
           status: data.status || 'open',
         },
@@ -121,9 +121,9 @@ class RoomInventoryRepository {
 
       const mappedData = {};
       if (updateData.totalInventory !== undefined)
-        mappedData.total_inventory = updateData.totalInventory;
+        mappedData.total_rooms = updateData.totalInventory;
       if (updateData.totalReserved !== undefined)
-        mappedData.total_reserved = updateData.totalReserved;
+        mappedData.booked_rooms = updateData.totalReserved;
       if (updateData.pricePerNight !== undefined)
         mappedData.price_per_night = updateData.pricePerNight;
       if (updateData.status !== undefined)
@@ -157,7 +157,7 @@ class RoomInventoryRepository {
 
       // Use Sequelize increment to ensure atomicity
       return await RoomInventory.increment(
-        { total_reserved: quantity },
+        { booked_rooms: quantity },
         {
           where: {
             room_id: roomId,
@@ -187,7 +187,7 @@ class RoomInventoryRepository {
 
       // Use Sequelize decrement to ensure atomicity
       return await RoomInventory.decrement(
-        { total_reserved: quantity },
+        { booked_rooms: quantity },
         {
           where: {
             room_id: roomId,
@@ -318,7 +318,7 @@ class RoomInventoryRepository {
 
       // Check if all dates have sufficient inventory
       for (const inventory of inventories) {
-        const available = inventory.total_inventory - inventory.total_reserved;
+        const available = inventory.total_rooms - inventory.booked_rooms;
         if (available < quantity || inventory.status !== 'open') {
           return false;
         }

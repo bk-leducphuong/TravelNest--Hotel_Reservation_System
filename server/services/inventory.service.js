@@ -9,7 +9,7 @@ const ApiError = require('@utils/ApiError');
 class InventoryService {
   /**
    * Reserve rooms for a booking
-   * Increments total_reserved for each room and date in the date range
+   * Increments booked_rooms for each room and date in the date range
    *
    * @param {Object} data - Reservation data
    * @param {Array<Object>} data.bookedRooms - Array of {room_id, roomQuantity}
@@ -105,7 +105,7 @@ class InventoryService {
 
   /**
    * Release rooms from a cancelled booking
-   * Decrements total_reserved for each room and date in the date range
+   * Decrements booked_rooms for each room and date in the date range
    *
    * @param {Object} data - Release data
    * @param {Array<Object>} data.bookedRooms - Array of {room_id, roomQuantity}

@@ -62,7 +62,7 @@ const recomputePricing = async (hotelId) => {
       room_id: { [Op.in]: roomIds },
       date: { [Op.gte]: now },
       status: 'open',
-      [Sequelize.literal]: Sequelize.literal('total_reserved < total_inventory'),
+      [Sequelize.literal]: Sequelize.literal('booked_rooms < total_rooms'),
     },
     attributes: [
       [Sequelize.fn('MIN', Sequelize.col('price_per_night')), 'min_price'],

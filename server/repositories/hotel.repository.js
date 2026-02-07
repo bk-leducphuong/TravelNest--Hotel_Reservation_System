@@ -69,13 +69,13 @@ class HotelRepository {
         SELECT 
           ri.room_id,
           SUM(ri.price_per_night) AS price_per_night,
-          MIN(ri.total_inventory - ri.total_reserved) AS available_rooms
+          MIN(ri.total_rooms - ri.booked_rooms) AS available_rooms
         FROM room_inventory AS ri
         WHERE 
           ri.date BETWEEN ? AND ?
           AND ri.status = 'open'
         GROUP BY ri.room_id
-        HAVING COUNT(CASE WHEN ri.total_inventory - ri.total_reserved >= ? THEN 1 END) = ?
+        HAVING COUNT(CASE WHEN ri.total_rooms - ri.booked_rooms >= ? THEN 1 END) = ?
       ) AS ri ON r.room_id = ri.room_id
       JOIN hotels AS h ON h.id = r.hotel_id
       WHERE h.id = ?
@@ -208,7 +208,7 @@ class HotelRepository {
 
     const query = `
       SELECT 
-        MIN(ri.total_inventory - ri.total_reserved) AS available_rooms,
+        MIN(ri.total_rooms - ri.booked_rooms) AS available_rooms,
         r.room_id
       FROM hotels h
       JOIN rooms r 
@@ -219,7 +219,7 @@ class HotelRepository {
       AND r.room_id IN (?)
       AND ri.date BETWEEN ? AND ?
       GROUP BY r.room_id
-      HAVING COUNT(CASE WHEN ri.total_inventory - ri.total_reserved >= 0 THEN 1 END) = ?
+      HAVING COUNT(CASE WHEN ri.total_rooms - ri.booked_rooms >= 0 THEN 1 END) = ?
     `;
 
     return await sequelize.query(query, {

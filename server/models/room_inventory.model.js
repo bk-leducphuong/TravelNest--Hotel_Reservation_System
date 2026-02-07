@@ -22,7 +22,7 @@ module.exports = function (sequelize, DataTypes) {
         primaryKey: true,
         comment: 'Composite primary key part 2 - specific date for inventory',
       },
-      total_inventory: {
+      total_rooms: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
@@ -31,19 +31,25 @@ module.exports = function (sequelize, DataTypes) {
         },
         comment: 'Total number of rooms available for this date',
       },
-      total_reserved: {
+      booked_rooms: {
         type: DataTypes.INTEGER,
         allowNull: false,
         defaultValue: 0,
         validate: {
           min: 0,
           isValidReservation(value) {
-            if (value > this.total_inventory) {
-              throw new Error('total_reserved cannot exceed total_inventory');
+            if (value > this.total_rooms) {
+              throw new Error('booked rooms cannot exceed total rooms');
             }
           },
         },
         comment: 'Number of rooms already reserved for this date',
+      },
+      held_rooms: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+        comment: 'Number of rooms currently held for this date',
       },
       status: {
         type: DataTypes.ENUM('open', 'close', 'sold_out', 'maintenance'),
@@ -112,8 +118,8 @@ module.exports = function (sequelize, DataTypes) {
       ],
       validate: {
         reservationCheck() {
-          if (this.total_reserved > this.total_inventory) {
-            throw new Error('total_reserved cannot exceed total_inventory');
+          if (this.booked_rooms > this.total_rooms) {
+            throw new Error('booked rooms cannot exceed total rooms');
           }
         },
       },
