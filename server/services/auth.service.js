@@ -174,9 +174,7 @@ class AuthService {
     await authRepository.assignRoleToUser(newUser.id, role.id);
 
     // Get full user data with context
-    const userWithContext = await authRepository.getUserWithContext(
-      newUser.id
-    );
+    const userWithContext = await authRepository.getUserWithContext(newUser.id);
 
     return {
       userId: newUser.id,
@@ -184,5 +182,6 @@ class AuthService {
       userData: userWithContext,
     };
   }
+}
 
 module.exports = new AuthService();
