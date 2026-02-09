@@ -16,13 +16,13 @@ const {
   getHoldById,
   releaseHold,
 } = require('@controllers/v1/hold.controller');
-const { isUserAuthenticated } = require('@middlewares/auth.middleware');
+const { authenticate } = require('@middlewares/auth.middleware');
 const validate = require('@middlewares/validate.middleware');
 const holdSchema = require('@validators/v1/hold.schema');
 
 const router = express.Router();
 
-router.use(isUserAuthenticated);
+router.use(authenticate);
 
 /**
  * POST /api/hold

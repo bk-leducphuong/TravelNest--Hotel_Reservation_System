@@ -5,14 +5,14 @@ const {
   getPaymentByBookingId,
   getPaymentByTransactionId,
 } = require('@controllers/v1/payment.controller.js');
-const { isUserAuthenticated } = require('@middlewares/auth.middleware');
+const { authenticate } = require('@middlewares/auth.middleware');
 const validate = require('@middlewares/validate.middleware');
 const paymentSchema = require('@validators/v1/payment.schema');
 const router = express.Router();
 
 // root route: /api/payments
 // All routes require authentication
-router.use(isUserAuthenticated);
+router.use(authenticate);
 
 /**
  * GET /api/payments

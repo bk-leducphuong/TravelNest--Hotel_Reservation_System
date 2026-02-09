@@ -26,8 +26,8 @@ require('dotenv').config({
 });
 const { faker } = require('@faker-js/faker');
 const bcrypt = require('bcryptjs');
-const db = require('@models');
-const sequelize = require('@config/database.config');
+const db = require('../../models');
+const sequelize = require('../../config/database.config');
 const { users: Users, roles: Roles, user_roles: UserRoles } = db;
 
 /**

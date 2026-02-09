@@ -3,7 +3,7 @@ const {
   submitJoinForm,
   uploadPhotos,
 } = require('@controllers/v1/join.controller.js');
-const { isAdminAuthenticated } = require('@middlewares/auth.middleware');
+const { authenticate } = require('@middlewares/auth.middleware');
 const upload = require('@config/multer.config');
 const validate = require('@middlewares/validate.middleware');
 const joinSchema = require('@validators/v1/join.schema');
@@ -11,7 +11,7 @@ const router = express.Router();
 
 // root route: /api/join
 // All routes require authentication (admin/partner)
-router.use(isAdminAuthenticated);
+router.use(authenticate);
 
 /**
  * POST /api/join

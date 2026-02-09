@@ -1,5 +1,5 @@
 const express = require('express');
-const { isUserAuthenticated } = require('@middlewares/auth.middleware');
+const { authenticate } = require('@middlewares/auth.middleware');
 const {
   getCurrentUser,
   updateCurrentUser,
@@ -16,7 +16,7 @@ const userSchema = require('@validators/v1/user.schema');
 const router = express.Router();
 
 // All routes require authentication
-router.use(isUserAuthenticated);
+router.use(authenticate);
 
 // Current user resource
 // GET /api/user - Get current user information

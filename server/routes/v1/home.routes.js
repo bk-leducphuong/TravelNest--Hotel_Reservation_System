@@ -11,7 +11,7 @@ const {
   getPopularDestinations,
   getTrendingHotels,
 } = require('@controllers/v1/home.controller.js');
-const { isUserAuthenticated } = require('@middlewares/auth.middleware');
+const { authenticate } = require('@middlewares/auth.middleware');
 const validate = require('@middlewares/validate.middleware');
 const homeSchema = require('@validators/v1/home.schema');
 const router = express.Router();
@@ -35,7 +35,7 @@ router.get(
  */
 router.post(
   '/recent-viewed-hotels',
-  isUserAuthenticated,
+  authenticate,
   validate(homeSchema.recordHotelView),
   recordHotelView
 );
@@ -46,7 +46,7 @@ router.post(
  */
 router.get(
   '/recent-searches',
-  isUserAuthenticated,
+  authenticate,
   validate(homeSchema.getRecentSearches),
   getRecentSearches
 );
@@ -57,7 +57,7 @@ router.get(
  */
 router.delete(
   '/recent-searches/:searchId',
-  isUserAuthenticated,
+  authenticate,
   validate(homeSchema.removeRecentSearch),
   removeRecentSearch
 );
@@ -98,7 +98,7 @@ router.get(
  */
 router.get(
   '/recently-viewed-hotels',
-  isUserAuthenticated,
+  authenticate,
   validate(homeSchema.getRecentlyViewedHotels),
   getRecentlyViewedHotels
 );

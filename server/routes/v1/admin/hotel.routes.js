@@ -9,7 +9,7 @@ const {
   addHotelPhotos,
   deleteHotelPhotos,
 } = require('@controllers/v1/admin/room.controller');
-const { isAdminAuthenticated } = require('@middlewares/auth.middleware');
+const { authenticate } = require('@middlewares/auth.middleware');
 const validate = require('@middlewares/validate.middleware');
 const hotelSchema = require('@validators/v1/admin/hotel.schema');
 const roomSchema = require('@validators/v1/admin/room.schema');
@@ -18,7 +18,7 @@ const router = express.Router();
 
 // Root route: /api/admin/hotels
 // All routes require admin authentication
-router.use(isAdminAuthenticated);
+router.use(authenticate);
 
 /**
  * GET /api/admin/hotels

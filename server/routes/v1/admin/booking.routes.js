@@ -5,14 +5,14 @@ const {
   getBookerInformation,
   updateBookingStatus,
 } = require('@controllers/v1/admin/booking.controller');
-const { isAdminAuthenticated } = require('@middlewares/auth.middleware');
+const { authenticate } = require('@middlewares/auth.middleware');
 const validate = require('@middlewares/validate.middleware');
 const bookingSchema = require('@validators/v1/admin/booking.schema');
 const router = express.Router();
 
 // Root route: /api/admin/bookings
 // All routes require admin authentication
-router.use(isAdminAuthenticated);
+router.use(authenticate);
 
 /**
  * GET /api/admin/bookings

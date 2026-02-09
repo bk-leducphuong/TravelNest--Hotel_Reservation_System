@@ -5,14 +5,14 @@ const {
   markAllNotificationsAsRead,
   getUnreadCount,
 } = require('@controllers/v1/notification.controller.js');
-const { isUserAuthenticated } = require('@middlewares/auth.middleware');
+const { authenticate } = require('@middlewares/auth.middleware');
 const validate = require('@middlewares/validate.middleware');
 const notificationSchema = require('@validators/v1/notification.schema');
 const router = express.Router();
 
 // root route: /api/notifications
 // All routes require authentication
-router.use(isUserAuthenticated);
+router.use(authenticate);
 
 /**
  * GET /api/notifications

@@ -5,24 +5,19 @@ const {
   getBookingByCode,
   cancelBooking,
 } = require('@controllers/v1/booking.controller.js');
-const { isUserAuthenticated } = require('@middlewares/auth.middleware');
+const { authenticate } = require('@middlewares/auth.middleware');
 const validate = require('@middlewares/validate.middleware');
 const bookingSchema = require('@validators/v1/booking.schema');
 const router = express.Router();
 
 // root route: /api/bookings
-// All routes require authentication
-router.use(isUserAuthenticated);
+router.use(authenticate);
 
 /**
  * GET /api/bookings
  * Get all bookings for authenticated user
  */
-router.get(
-  '/',
-  validate(bookingSchema.getUserBookings),
-  getUserBookings
-);
+router.get('/', validate(bookingSchema.getUserBookings), getUserBookings);
 
 /**
  * GET /api/bookings/code/:bookingCode

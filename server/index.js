@@ -13,7 +13,7 @@ const http = require('http');
 
 /*********************** Config ************************/
 const logger = require('@config/logger.config');
-const sequelize = require('@config/database.config');
+const db = require('@models');
 const { initSocket } = require('@socket/index');
 const { initBucket } = require('@config/minio.config');
 
@@ -28,8 +28,10 @@ const v1Routes = require('@routes/v1/index.js');
 
 /*********************** Init Server ************************/
 const initServer = async () => {
-  // Database connection
-  await sequelize.authenticate();
+  // Connect and sync database
+  await db.sequelize.authenticate();
+  await db.sequelize.sync();
+
   require('@models/index.js');
   logger.info('Database connected successfully');
 

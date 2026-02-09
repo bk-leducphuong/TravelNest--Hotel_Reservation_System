@@ -6,14 +6,14 @@ const {
   validateReview,
   checkAlreadyReviewed,
 } = require('@controllers/v1/review.controller.js');
-const { isUserAuthenticated } = require('@middlewares/auth.middleware');
+const { authenticate } = require('@middlewares/auth.middleware');
 const validate = require('@middlewares/validate.middleware');
 const reviewSchema = require('@validators/v1/review.schema');
 const router = express.Router();
 
 // root route: /api/reviews
 // All routes require authentication
-router.use(isUserAuthenticated);
+router.use(authenticate);
 
 /**
  * GET /api/reviews

@@ -6,14 +6,14 @@ const {
   markAllNotificationsAsRead,
   deleteNotification,
 } = require('@controllers/v1/admin/notification.controller');
-const { isAdminAuthenticated } = require('@middlewares/auth.middleware');
+const { authenticate } = require('@middlewares/auth.middleware');
 const validate = require('@middlewares/validate.middleware');
 const notificationSchema = require('@validators/v1/admin/notification.schema');
 const router = express.Router();
 
 // Root route: /api/admin/notifications
 // All routes require admin authentication
-router.use(isAdminAuthenticated);
+router.use(authenticate);
 
 /**
  * GET /api/admin/notifications

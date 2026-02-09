@@ -154,10 +154,6 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'sender_id',
       as: 'sent_notifications', // Explicit alias
     });
-    User.hasMany(models.refunds, {
-      foreignKey: 'buyer_id',
-      as: 'user_refunds', // Explicit alias to avoid conflicts
-    });
     User.hasMany(models.reviews, {
       foreignKey: 'user_id',
       as: 'user_reviews', // Explicit alias

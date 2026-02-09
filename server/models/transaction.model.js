@@ -171,10 +171,6 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'hotel_id',
       as: 'hotel',
     });
-    Transaction.hasMany(models.fees, {
-      foreignKey: 'transaction_id',
-      as: 'fees',
-    });
     Transaction.hasOne(models.invoices, {
       foreignKey: 'transaction_id',
       as: 'invoice',
@@ -182,10 +178,6 @@ module.exports = function (sequelize, DataTypes) {
     Transaction.hasMany(models.payments, {
       foreignKey: 'transaction_id',
       as: 'payments',
-    });
-    Transaction.hasMany(models.refunds, {
-      foreignKey: 'transaction_id',
-      as: 'refunds',
     });
   };
 

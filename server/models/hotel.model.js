@@ -180,10 +180,6 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'reciever_id',
       as: 'notifications',
     });
-    Hotel.hasMany(models.refunds, {
-      foreignKey: 'hotel_id',
-      as: 'refunds',
-    });
     Hotel.hasMany(models.reviews, {
       foreignKey: 'hotel_id',
       as: 'reviews',

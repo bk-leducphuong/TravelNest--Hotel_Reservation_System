@@ -1,12 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 // const { createAccount, createPayout, createAccountLink, checkAccountExist, getInvoices } = require('../../controllers/admin/payoutController');
-const { isAdminAuthenticated } = require('../../middlewares/sessionAuth');
+const { authenticate } = require('@middlewares/auth.middleware');
 const router = express.Router();
 
 // root route: /api/admin/payout
 
-router.use(isAdminAuthenticated);
+router.use(authenticate);
 
 // Create connect account
 //Route to check if user already has an account
