@@ -174,12 +174,6 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'user_id',
       as: 'hotel_roles',
     });
-    User.belongsToMany(models.hotels, {
-      through: models.hotel_users,
-      foreignKey: 'user_id',
-      otherKey: 'hotel_id',
-      as: 'hotels_with_roles',
-    });
     // Global roles/permissions through a separate table
     User.hasMany(models.user_roles, {
       foreignKey: 'user_id',

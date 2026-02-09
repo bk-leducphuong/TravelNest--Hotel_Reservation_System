@@ -234,12 +234,6 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'hotel_id',
       as: 'hotel_users',
     });
-    Hotel.belongsToMany(models.users, {
-      through: models.hotel_users,
-      foreignKey: 'hotel_id',
-      otherKey: 'user_id',
-      as: 'users',
-    });
   };
 
   return Hotel;

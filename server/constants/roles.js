@@ -1,13 +1,12 @@
 const ROLES = {
   // Global roles
-  GUEST: 'guest',
-  USER: 'user',
-  ADMIN: 'admin',
-  SUPPORT_AGENT: 'support_agent',
-  // Hotel-specific roles
-  OWNER: 'owner',
-  MANAGER: 'manager',
-  STAFF: 'staff',
+  GUEST: 'guest', // Not logged in
+  USER: 'user', // Logged in
+  ADMIN: 'admin', // Platform admin
+  SUPPORT_AGENT: 'support_agent', // Support client agent
+  OWNER: 'owner', // Hotel owner
+  MANAGER: 'manager', // Hotel manager
+  STAFF: 'staff', // Hotel staff
 };
 
 const VALID_ROLES = Object.values(ROLES);
