@@ -16,9 +16,6 @@ const sequelize = new Sequelize(
     dialect: 'mysql',
     port: process.env.DB_PORT || 3306,
     logging: false,
-    query: {
-      raw: true,
-    },
     operatorsAliases: false,
     pool: {
       max: 5,

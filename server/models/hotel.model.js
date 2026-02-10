@@ -211,24 +211,12 @@ module.exports = function (sequelize, DataTypes) {
       foreignKey: 'hotel_id',
       as: 'viewed_hotels',
     });
-    // One-to-one relationship with rating summary
-    Hotel.hasOne(models.hotel_rating_summaries, {
-      foreignKey: 'hotel_id',
-      as: 'rating_summary',
-    });
-    // One-to-one relationship with search snapshot (denormalized for fast queries)
-    Hotel.hasOne(models.hotel_search_snapshots, {
-      foreignKey: 'hotel_id',
-      as: 'search_snapshot',
-    });
-    // Many-to-many relationship with amenities through hotel_amenities
     Hotel.belongsToMany(models.amenities, {
       through: models.hotel_amenities,
       foreignKey: 'hotel_id',
       otherKey: 'amenity_id',
       as: 'amenities',
     });
-    // Association with images table
     Hotel.hasMany(models.images, {
       foreignKey: 'entity_id',
       constraints: false,
