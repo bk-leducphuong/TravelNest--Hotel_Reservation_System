@@ -5,14 +5,15 @@
  * Requires existing hotels in the database.
  *
  * Usage:
- *   - Run directly: node seed/room.seed.js
- *   - Import and use: const { seedRooms } = require('./seed/room.seed');
+ *   - Run directly: node database/seeders/room.seed.js
+ *   - Import and use: const { seedRooms } = require('./database/seeders/room.seed');
  *
  * Options:
  *   - roomsPerHotel: Number of rooms to generate per hotel (default: 3-8 random)
  *   - clearExisting: Whether to clear existing rooms before seeding (default: false)
  *
  * Note: This seed file requires hotels to exist in the database first.
+ * Room images and room amenities are stored in images and room_amenities tables; seed those separately if needed.
  */
 
 require('dotenv').config({
@@ -22,94 +23,23 @@ require('dotenv').config({
       : '.env.production',
 });
 const { faker } = require('@faker-js/faker');
-const db = require('../models');
-const sequelize = require('../config/database.config');
-const { rooms, hotels } = db;
-
-// Common room types
-const ROOM_TYPES = [
-  'Standard Room',
-  'Deluxe Room',
-  'Superior Room',
-  'Executive Room',
-  'Suite',
-  'Junior Suite',
-  'Presidential Suite',
-  'Family Room',
-  'Double Room',
-  'Single Room',
-  'Twin Room',
-  'Triple Room',
-  'Quad Room',
-  'Studio',
-  'Apartment',
-  'Villa',
-  'Penthouse',
-];
-
-// Common room amenities
-const ROOM_AMENITIES_POOL = [
-  'WiFi',
-  'Air Conditioning',
-  'TV',
-  'Mini Bar',
-  'Safe',
-  'Balcony',
-  'Ocean View',
-  'City View',
-  'Room Service',
-  'Work Desk',
-  'Sofa',
-  'Refrigerator',
-  'Coffee Maker',
-  'Hair Dryer',
-  'Iron',
-  'Bathtub',
-  'Shower',
-  'Jacuzzi',
-  'Kitchenette',
-  'Dining Area',
-  'Living Area',
-  'Fireplace',
-  'Private Pool',
-  'Garden View',
-  'Mountain View',
-];
+const db = require('../../models');
+const sequelize = require('../../config/database.config');
+const { ROOM_TYPES, ROOM_STATUSES } = require('../../constants/rooms');
+const { rooms: Rooms, hotels: Hotels } = db;
 
 /**
- * Generate random room amenities (3-8 amenities per room)
- * @returns {string} JSON stringified array of amenities
+ * Format room type for display (e.g. deluxe -> Deluxe)
  */
-function generateRoomAmenities() {
-  const numAmenities = faker.number.int({ min: 3, max: 8 });
-  const selectedAmenities = faker.helpers.arrayElements(
-    ROOM_AMENITIES_POOL,
-    numAmenities
-  );
-  return JSON.stringify(selectedAmenities);
-}
-
-/**
- * Generate room image URLs (2-5 images per room)
- * @returns {string} JSON stringified array of image URLs
- */
-function generateRoomImages() {
-  const numImages = faker.number.int({ min: 2, max: 5 });
-  const imageUrls = Array.from({ length: numImages }, () =>
-    faker.image.urlLoremFlickr({
-      width: 800,
-      height: 600,
-      category: 'hotel,room,interior',
-    })
-  );
-  return JSON.stringify(imageUrls);
+function roomTypeDisplayName(roomType) {
+  return roomType.charAt(0).toUpperCase() + roomType.slice(1);
 }
 
 /**
  * Generate fake room data for a hotel
- * @param {number} hotelId - Hotel ID
+ * @param {string} hotelId - Hotel UUID
  * @param {number} count - Number of rooms to generate
- * @returns {Array} Array of room data objects
+ * @returns {Array<Object>} Array of room data objects matching rooms table
  */
 function generateRoomsForHotel(hotelId, count) {
   const roomList = [];
@@ -117,23 +47,24 @@ function generateRoomsForHotel(hotelId, count) {
   for (let i = 0; i < count; i++) {
     const roomType = faker.helpers.arrayElement(ROOM_TYPES);
     const maxGuests = faker.helpers.arrayElement([1, 2, 3, 4, 5, 6]);
-    const roomSize = faker.number.int({ min: 15, max: 100 }); // Square meters
-    const quantity = faker.number.int({ min: 1, max: 10 }); // Number of rooms of this type
+    const roomSize = faker.number.int({ min: 15, max: 100 });
+    const quantity = faker.number.int({ min: 1, max: 10 });
+    const roomName = `${roomTypeDisplayName(roomType)} ${faker.number.int({ min: 100, max: 999 })}`;
 
-    const room = {
+    roomList.push({
       hotel_id: hotelId,
-      room_name: `${roomType} ${faker.number.int({ min: 100, max: 999 })}`,
-      room_type: roomType,
+      room_name: roomName,
       max_guests: maxGuests,
       room_size: roomSize,
-      quantity: quantity,
-      image_urls: generateRoomImages(),
-      room_amenities: generateRoomAmenities(),
-      created_at: faker.date.past({ years: 1 }),
-      updated_at: faker.date.recent({ days: 30 }),
-    };
-
-    roomList.push(room);
+      room_type: roomType,
+      quantity,
+      status: faker.helpers.arrayElement([
+        'active',
+        'active',
+        'active',
+        ...ROOM_STATUSES.filter((s) => s !== 'active'),
+      ]),
+    });
   }
 
   return roomList;
@@ -145,7 +76,7 @@ function generateRoomsForHotel(hotelId, count) {
  * @param {number|Object} options.roomsPerHotel - Number of rooms per hotel (default: random 3-8)
  *   Can be a number or object with min/max: { min: 3, max: 8 }
  * @param {boolean} options.clearExisting - Whether to clear existing rooms (default: false)
- * @param {Array<number>} options.hotelIds - Specific hotel IDs to seed (optional, seeds all if not provided)
+ * @param {Array<string>} options.hotelIds - Specific hotel UUIDs to seed (optional, seeds all if not provided)
  */
 async function seedRooms(options = {}) {
   const {
@@ -163,7 +94,7 @@ async function seedRooms(options = {}) {
       hotelQuery = { id: hotelIds };
     }
 
-    const existingHotels = await hotels.findAll({
+    const existingHotels = await Hotels.findAll({
       where: hotelQuery,
       attributes: ['id'],
     });
@@ -179,9 +110,9 @@ async function seedRooms(options = {}) {
     if (clearExisting) {
       console.log('🗑️  Clearing existing rooms...');
       if (hotelIds && Array.isArray(hotelIds) && hotelIds.length > 0) {
-        await rooms.destroy({ where: { hotel_id: hotelIds } });
+        await Rooms.destroy({ where: { hotel_id: hotelIds } });
       } else {
-        await rooms.destroy({ where: {}, truncate: true });
+        await Rooms.destroy({ where: {}, force: true });
       }
       console.log('✅ Existing rooms cleared');
     }
@@ -216,19 +147,18 @@ async function seedRooms(options = {}) {
     // Bulk create all rooms
     if (roomsToCreate.length > 0) {
       console.log(`\n💾 Creating ${roomsToCreate.length} room(s) in database...`);
-      await rooms.bulkCreate(roomsToCreate, {
-        ignoreDuplicates: true,
+      await Rooms.bulkCreate(roomsToCreate, {
         validate: true,
       });
       console.log(`✅ ${roomsToCreate.length} room(s) created successfully`);
     }
 
     // Display summary
-    const totalRooms = await rooms.count();
-    const roomsByHotel = await rooms.findAll({
+    const totalRooms = await Rooms.count();
+    const roomsByHotel = await Rooms.findAll({
       attributes: [
         'hotel_id',
-        [sequelize.fn('COUNT', sequelize.col('room_id')), 'room_count'],
+        [sequelize.fn('COUNT', sequelize.col('id')), 'room_count'],
       ],
       group: ['hotel_id'],
       raw: true,
@@ -253,20 +183,20 @@ async function seedRooms(options = {}) {
 
 /**
  * Seed rooms for a specific hotel
- * @param {number} hotelId - Hotel ID
+ * @param {string} hotelId - Hotel UUID
  * @param {number} count - Number of rooms to generate
  * @returns {Promise<Array>} Created rooms
  */
 async function seedRoomsForHotel(hotelId, count = 5) {
   try {
     // Verify hotel exists
-    const hotel = await hotels.findByPk(hotelId);
+    const hotel = await Hotels.findByPk(hotelId);
     if (!hotel) {
       throw new Error(`Hotel with ID ${hotelId} not found`);
     }
 
     const hotelRooms = generateRoomsForHotel(hotelId, count);
-    const createdRooms = await rooms.bulkCreate(hotelRooms, {
+    const createdRooms = await Rooms.bulkCreate(hotelRooms, {
       validate: true,
     });
 
@@ -280,9 +210,9 @@ async function seedRoomsForHotel(hotelId, count = 5) {
 
 /**
  * Generate room data without saving to database (for testing)
- * @param {number} hotelId - Hotel ID
+ * @param {string} hotelId - Hotel UUID
  * @param {number} count - Number of rooms to generate
- * @returns {Array} Array of room data objects
+ * @returns {Array<Object>} Array of room data objects
  */
 function generateRooms(hotelId, count = 5) {
   return generateRoomsForHotel(hotelId, count);
@@ -304,7 +234,7 @@ if (require.main === module) {
       });
 
       // Close database connection
-      await sequelize.close();
+      await db.sequelize.close();
       console.log('✅ Database connection closed');
       process.exit(0);
     } catch (error) {

@@ -1,5 +1,11 @@
 const Sequelize = require('sequelize');
 const { uuidv7 } = require('uuidv7');
+const {
+  HOTEL_STATUSES,
+  HOTEL_CHECK_IN_POLICIES,
+  HOTEL_CHECK_OUT_POLICIES,
+  IANA_TIMEZONES,
+} = require('../constants/hotels');
 module.exports = function (sequelize, DataTypes) {
   const Hotel = sequelize.define(
     'hotels',
@@ -72,11 +78,17 @@ module.exports = function (sequelize, DataTypes) {
       check_in_policy: {
         type: DataTypes.TEXT,
         allowNull: true,
+        validate: {
+          isIn: [[...HOTEL_CHECK_IN_POLICIES]],
+        },
         comment: 'Check-in policy details (e.g., late check-in available)',
       },
       check_out_policy: {
         type: DataTypes.TEXT,
         allowNull: true,
+        validate: {
+          isIn: [[...HOTEL_CHECK_OUT_POLICIES]],
+        },
         comment: 'Check-out policy details',
       },
       // Pricing
@@ -87,7 +99,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       // Status and lifecycle management
       status: {
-        type: DataTypes.ENUM('active', 'inactive', 'suspended'),
+        type: DataTypes.ENUM(...HOTEL_STATUSES),
         allowNull: false,
         defaultValue: 'active',
         comment: 'Hotel operational status',
@@ -96,6 +108,9 @@ module.exports = function (sequelize, DataTypes) {
       timezone: {
         type: DataTypes.STRING(50),
         allowNull: true,
+        validate: {
+          isIn: [[...IANA_TIMEZONES]],
+        },
         comment: 'IANA timezone identifier (e.g., America/New_York)',
       },
       created_at: {

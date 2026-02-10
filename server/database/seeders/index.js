@@ -2,6 +2,10 @@ const { seedUsers } = require('./user.seed');
 const { seedReviews } = require('./review.seed');
 const { seedRooms } = require('./room.seed');
 const { seedBookings } = require('./booking.seed');
+const { seedAmenities } = require('./amenity.seed');
+const { seedHotelAmenities } = require('./hotel_amenity.seed');
+const { seedRoomInventory } = require('./room_inventory.seed');
+const { seedRoomAmenities } = require('./room_amenity.seed');
 
 if (require.main === module) {
   (async () => {
@@ -26,4 +30,8 @@ module.exports = {
   seedReviews,
   seedRooms,
   seedBookings,
+  seedAmenities,
+  seedHotelAmenities,
+  seedRoomInventory,
+  seedRoomAmenities,
 };

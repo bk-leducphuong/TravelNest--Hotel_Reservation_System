@@ -1,5 +1,10 @@
 const Sequelize = require('sequelize');
 const { uuidv7 } = require('uuidv7');
+const {
+  AMENITY_CATEGORIES,
+  APPLICABLE_TO,
+  AMENITY_CODES,
+} = require('../constants/amenities');
 
 module.exports = function (sequelize, DataTypes) {
   const Amenity = sequelize.define(
@@ -15,6 +20,9 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(50),
         allowNull: false,
         unique: true,
+        validate: {
+          isIn: [[...AMENITY_CODES]],
+        },
         comment: 'Unique code for the amenity (e.g., FREE_WIFI, POOL, PARKING)',
       },
       name: {
@@ -28,29 +36,12 @@ module.exports = function (sequelize, DataTypes) {
         comment: 'Icon identifier (e.g., FontAwesome icon name, emoji, or URL)',
       },
       category: {
-        type: DataTypes.ENUM(
-          'general',
-          'room_features',
-          'bathroom',
-          'food_drink',
-          'services',
-          'business',
-          'wellness',
-          'transportation',
-          'entertainment',
-          'safety',
-          'bedding',
-          'technology',
-          'comfort',
-          'view',
-          'kitchen',
-          'accessibility'
-        ),
+        type: DataTypes.ENUM(...AMENITY_CATEGORIES),
         allowNull: false,
         comment: 'Category for grouping amenities',
       },
       applicable_to: {
-        type: DataTypes.ENUM('hotel', 'room', 'both'),
+        type: DataTypes.ENUM(...APPLICABLE_TO),
         allowNull: false,
         defaultValue: 'both',
         comment: 'Where this amenity can be applied',

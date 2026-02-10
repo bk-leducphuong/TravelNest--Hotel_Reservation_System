@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const { uuidv7 } = require('uuidv7');
+const { ROOM_TYPES, ROOM_STATUSES } = require('../constants/rooms');
 module.exports = function (sequelize, DataTypes) {
   const Room = sequelize.define(
     'rooms',
@@ -38,15 +39,7 @@ module.exports = function (sequelize, DataTypes) {
         comment: 'Room size in square meters',
       },
       room_type: {
-        type: DataTypes.ENUM(
-          'single',
-          'double',
-          'twin',
-          'suite',
-          'deluxe',
-          'family',
-          'studio'
-        ),
+        type: DataTypes.ENUM(...ROOM_TYPES),
         allowNull: true,
         comment: 'Standardized room type classification',
       },
@@ -61,7 +54,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       // Status for room availability management
       status: {
-        type: DataTypes.ENUM('active', 'inactive', 'maintenance'),
+        type: DataTypes.ENUM(...ROOM_STATUSES),
         allowNull: false,
         defaultValue: 'active',
         comment: 'Room operational status',
@@ -70,11 +63,13 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATE,
         allowNull: false,
         field: 'created_at',
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
         field: 'updated_at',
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
     },
     {

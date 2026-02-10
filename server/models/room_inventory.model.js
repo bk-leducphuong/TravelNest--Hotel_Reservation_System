@@ -1,5 +1,5 @@
-// TDOO: Add currency field for price
 const Sequelize = require('sequelize');
+const { CURRENCIES } = require('../constants/common');
 module.exports = function (sequelize, DataTypes) {
   const RoomInventory = sequelize.define(
     'room_inventory',
@@ -66,15 +66,30 @@ module.exports = function (sequelize, DataTypes) {
         comment:
           'Price per night for this specific date (allows dynamic pricing)',
       },
+      currency: {
+        type: DataTypes.STRING(3),
+        allowNull: false,
+        defaultValue: 'USD',
+        validate: {
+          isValidCurrency(value) {
+            if (!CURRENCIES.includes(value)) {
+              throw new Error('invalid currency');
+            }
+          },
+        },
+        comment: 'Currency for price per night',
+      },
       created_at: {
         type: DataTypes.DATE,
         allowNull: false,
         field: 'created_at',
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       updated_at: {
         type: DataTypes.DATE,
         allowNull: false,
         field: 'updated_at',
+        defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
       },
     },
     {

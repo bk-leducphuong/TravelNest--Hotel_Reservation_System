@@ -17,7 +17,10 @@
       "@socket/*": ["socket/*"],
       "@utils/*": ["utils/*"],
       "@interfaces/*": ["interfaces/*"],
-      "@adapters/*": ["adapters/*"]
+      "@adapters/*": ["adapters/*"],
+      "@constants/*": ["constants/*"],
+      "@helpers/*": ["helpers/*"],
+      "@infra/*": ["infra/*"]
     },
     "module": "commonjs",
     "target": "ES2020",

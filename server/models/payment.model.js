@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 const { uuidv7 } = require('uuidv7');
+const { CURRENCIES } = require('../constants/common');
+const { PAYMENT_METHODS, PAYMENT_STATUSES } = require('../constants/payment');
 
 module.exports = function (sequelize, DataTypes) {
   const Payment = sequelize.define(
@@ -27,21 +29,21 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.STRING(3),
         allowNull: false,
         defaultValue: 'USD',
+        validate: {
+          isValidCurrency(value) {
+            if (!CURRENCIES.includes(value)) {
+              throw new Error('invalid currency');
+            }
+          },
+        },
       },
       payment_method: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.ENUM(...PAYMENT_METHODS),
         allowNull: false,
         comment: 'e.g., card, bank_transfer, wallet',
       },
       payment_status: {
-        type: DataTypes.ENUM(
-          'pending',
-          'processing',
-          'succeeded',
-          'failed',
-          'cancelled',
-          'refunded'
-        ),
+        type: DataTypes.ENUM(...PAYMENT_STATUSES),
         allowNull: false,
         defaultValue: 'pending',
       },
