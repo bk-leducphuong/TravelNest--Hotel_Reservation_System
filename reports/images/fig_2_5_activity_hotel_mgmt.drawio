@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="Page-1">
+    <mxGraphModel dx="1400" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1200">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- SWIMLANE: Chủ khách sạn (Hotel Owner)          -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <mxCell id="sw1" value="Chủ khách sạn" style="swimlane;startSize=35;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=14;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="280" height="1080" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- SWIMLANE: Hệ thống TravelNest                  -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <mxCell id="sw2" value="Hệ thống TravelNest" style="swimlane;startSize=35;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=14;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="40" width="440" height="1080" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- SWIMLANE: Dịch vụ ngoài (External Services)    -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <mxCell id="sw3" value="Dịch vụ ngoài" style="swimlane;startSize=35;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=14;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="780" y="40" width="280" height="1080" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- INITIAL NODE — filled black circle (UML start)         -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <mxCell id="n_start" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="sw1">
+          <mxGeometry x="115" y="60" width="30" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Đăng ký tài khoản Hotel Admin -->
+        <mxCell id="n1" value="Đăng ký tài khoản&#xa;Hotel Admin" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw1">
+          <mxGeometry x="55" y="120" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Đăng nhập -->
+        <mxCell id="n2" value="Đăng nhập" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw1">
+          <mxGeometry x="55" y="220" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Chọn Thêm khách sạn mới -->
+        <mxCell id="n4" value="Chọn Thêm&#xa;khách sạn mới" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw1">
+          <mxGeometry x="55" y="420" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Điền thông tin khách sạn -->
+        <mxCell id="n5" value="Điền thông tin&#xa;khách sạn" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw1">
+          <mxGeometry x="55" y="540" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Thêm phòng, giá, tiện nghi -->
+        <mxCell id="n6" value="Thêm phòng,&#xa;giá, tiện nghi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw1">
+          <mxGeometry x="55" y="650" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Tải ảnh khách sạn -->
+        <mxCell id="n7" value="Tải ảnh&#xa;khách sạn" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw1">
+          <mxGeometry x="55" y="760" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Công khai khách sạn -->
+        <mxCell id="n8" value="Công khai&#xa;khách sạn" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw1">
+          <mxGeometry x="55" y="920" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- FINAL NODE — bullseye (UML activity final) -->
+        <mxCell id="n_end" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="sw1">
+          <mxGeometry x="108" y="1020" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <!-- inner filled dot of bullseye -->
+        <mxCell id="n_end_dot" value="" style="ellipse;whiteSpace=wrap;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="sw1">
+          <mxGeometry x="118" y="1030" width="20" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- SYSTEM LANE nodes                                                       -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+        <!-- Xác thực & phân quyền (Authentication) -->
+        <mxCell id="s1" value="Xác thực &amp;&#xa;phân quyền" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw2">
+          <mxGeometry x="30" y="220" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- DECISION: Thông tin hợp lệ? -->
+        <mxCell id="dec1" value="Thông tin&#xa;hợp lệ?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d79b00;fontSize=12;" vertex="1" parent="sw2">
+          <mxGeometry x="55" y="310" width="120" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Tạo hồ sơ khách sạn mới -->
+        <mxCell id="s2" value="Tạo hồ sơ&#xa;khách sạn mới" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw2">
+          <mxGeometry x="30" y="540" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- FORK BAR — splits into MySQL save + image processing -->
+        <mxCell id="fork1" value="" style="shape=mxgraph.flowchart.annotation_2;fillColor=#000000;strokeColor=#000000;strokeWidth=6;direction=south;" vertex="1" parent="sw2">
+          <mxGeometry x="30" y="640" width="340" height="10" as="geometry"/>
+        </mxCell>
+
+        <!-- Lưu vào MySQL -->
+        <mxCell id="s3" value="Lưu vào MySQL&#xa;(Hotels, Rooms...)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw2">
+          <mxGeometry x="30" y="700" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- JOIN BAR — joins MySQL + image processing before Elasticsearch -->
+        <mxCell id="join1" value="" style="shape=mxgraph.flowchart.annotation_2;fillColor=#000000;strokeColor=#000000;strokeWidth=6;direction=south;" vertex="1" parent="sw2">
+          <mxGeometry x="30" y="830" width="340" height="10" as="geometry"/>
+        </mxCell>
+
+        <!-- Đồng bộ Elasticsearch -->
+        <mxCell id="s4" value="Đồng bộ&#xa;Elasticsearch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw2">
+          <mxGeometry x="110" y="880" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Cập nhật trạng thái công khai -->
+        <mxCell id="s5" value="Cập nhật trạng thái&#xa;công khai (MySQL)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontStyle=0;fontSize=12;arcSize=20;" vertex="1" parent="sw2">
+          <mxGeometry x="110" y="970" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- EXTERNAL SERVICES LANE nodes                                            -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+        <!-- Keycloak / Auth Service -->
+        <mxCell id="e1" value="Keycloak&#xa;(Auth Service)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#82b366;fontStyle=2;fontSize=12;arcSize=20;" vertex="1" parent="sw3">
+          <mxGeometry x="50" y="220" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Xử lý ảnh (Media Service) -->
+        <mxCell id="e2" value="Xử lý ảnh&#xa;(Media Service)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#82b366;fontStyle=2;fontSize=12;arcSize=20;" vertex="1" parent="sw3">
+          <mxGeometry x="50" y="700" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Elasticsearch Service -->
+        <mxCell id="e3" value="Elasticsearch&#xa;Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8f8f8;strokeColor=#82b366;fontStyle=2;fontSize=12;arcSize=20;" vertex="1" parent="sw3">
+          <mxGeometry x="50" y="880" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- EDGES — Owner lane internal                                              -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+        <!-- Start → Đăng ký -->
+        <mxCell id="e_start_n1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="sw1" source="n_start" target="n1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Đăng ký → Đăng nhập -->
+        <mxCell id="e_n1_n2" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="sw1" source="n1" target="n2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Đăng nhập → Chọn Thêm (after auth success decision comes back) -->
+        <mxCell id="e_n4_n5" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="sw1" source="n4" target="n5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Điền thông tin → Thêm phòng -->
+        <mxCell id="e_n5_n6" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="sw1" source="n5" target="n6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Thêm phòng → Tải ảnh -->
+        <mxCell id="e_n6_n7" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="sw1" source="n6" target="n7">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Tải ảnh → Công khai -->
+        <mxCell id="e_n7_n8" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="sw1" source="n7" target="n8">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Công khai → Final -->
+        <mxCell id="e_n8_end" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="sw1" source="n8" target="n_end">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- EDGES — System lane internal                                             -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+        <!-- Xác thực → Decision -->
+        <mxCell id="e_s1_dec1" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="sw2" source="s1" target="dec1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision [Hợp lệ] → Tạo hồ sơ -->
+        <mxCell id="e_dec1_s2" value="[Hợp lệ]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;fontSize=11;" edge="1" parent="sw2" source="dec1" target="s2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Tạo hồ sơ → Fork -->
+        <mxCell id="e_s2_fork" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.25;entryY=0.5;" edge="1" parent="sw2" source="s2" target="fork1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Fork → Lưu MySQL -->
+        <mxCell id="e_fork_s3" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.25;exitY=0.5;entryX=0.5;entryY=0;" edge="1" parent="sw2" source="fork1" target="s3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Lưu MySQL → Join -->
+        <mxCell id="e_s3_join" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.25;entryY=0.5;" edge="1" parent="sw2" source="s3" target="join1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Join → Đồng bộ Elasticsearch -->
+        <mxCell id="e_join_s4" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=0.5;entryX=0.5;entryY=0;" edge="1" parent="sw2" source="join1" target="s4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Đồng bộ ES → Cập nhật trạng thái -->
+        <mxCell id="e_s4_s5" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="sw2" source="s4" target="s5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- CROSS-LANE EDGES                                                        -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+
+        <!-- Đăng nhập (owner) → Xác thực (system): submit credentials -->
+        <mxCell id="e_n2_s1" value="gửi thông tin đăng nhập" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;dashed=0;fontSize=10;endArrow=open;endFill=0;" edge="1" parent="1" source="n2" target="s1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Xác thực (system) → Keycloak (external): verify via Keycloak -->
+        <mxCell id="e_s1_e1" value="xác thực qua Keycloak" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;dashed=1;fontSize=10;endArrow=open;endFill=0;" edge="1" parent="1" source="s1" target="e1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision [Không hợp lệ] → Đăng nhập lại (back to owner): deny -->
+        <mxCell id="e_dec1_n2" value="[Không hợp lệ]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=0.5;entryX=1;entryY=0.5;dashed=0;fontSize=10;endArrow=open;endFill=0;" edge="1" parent="1" source="dec1" target="n2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="380"/>
+              <mxPoint x="230" y="380"/>
+              <mxPoint x="230" y="245"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Decision [Hợp lệ] feeds back to owner → Chọn Thêm khách sạn mới -->
+        <mxCell id="e_dec1_n4" value="[Hợp lệ]" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=1;entryX=1;entryY=0.5;dashed=0;fontSize=10;endArrow=open;endFill=0;" edge="1" parent="1" source="dec1" target="n4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="440"/>
+              <mxPoint x="230" y="440"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Điền thông tin (owner) → Tạo hồ sơ (system): submit hotel info -->
+        <mxCell id="e_n5_s2" value="gửi dữ liệu khách sạn" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;dashed=0;fontSize=10;endArrow=open;endFill=0;" edge="1" parent="1" source="n5" target="s2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Fork (system) → Xử lý ảnh (external): concurrent fork branch -->
+        <mxCell id="e_fork_e2" value="xử lý ảnh" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.75;exitY=0.5;entryX=0;entryY=0.5;dashed=0;fontSize=10;endArrow=open;endFill=0;" edge="1" parent="1" source="fork1" target="e2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Tải ảnh (owner) → Xử lý ảnh (external): trigger image upload -->
+        <mxCell id="e_n7_e2" value="tải lên ảnh" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0;dashed=0;fontSize=10;endArrow=open;endFill=0;" edge="1" parent="1" source="n7" target="e2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Xử lý ảnh (external) → Join (system): image ready -->
+        <mxCell id="e_e2_join" value="ảnh đã xử lý" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0;exitY=1;entryX=0.75;entryY=0.5;dashed=0;fontSize=10;endArrow=open;endFill=0;" edge="1" parent="1" source="e2" target="join1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Đồng bộ Elasticsearch (system) → Elasticsearch Service (external) -->
+        <mxCell id="e_s4_e3" value="đồng bộ index" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;dashed=1;fontSize=10;endArrow=open;endFill=0;" edge="1" parent="1" source="s4" target="e3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Công khai khách sạn (owner) → Cập nhật trạng thái (system) -->
+        <mxCell id="e_n8_s5" value="yêu cầu công khai" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;dashed=0;fontSize=10;endArrow=open;endFill=0;" edge="1" parent="1" source="n8" target="s5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

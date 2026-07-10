@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="Booking Service Package Diagram">
+    <mxGraphModel dx="1422" dy="762" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1700" pageHeight="1100">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="title" value="Booking Service — Package Diagram"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=16;fontStyle=1;fillColor=none;strokeColor=none;"
+          vertex="1" parent="1">
+          <mxGeometry x="250" y="10" width="1000" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- ENTITIES PACKAGE                  -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="pkg_ent" value=""
+          style="rounded=0;html=1;fillColor=#f5f5f5;strokeColor=#666666;verticalAlign=top;"
+          vertex="1" parent="1">
+          <mxGeometry x="20" y="55" width="1460" height="400" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg_ent_lbl" value="entities"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fillColor=#e0e0e0;strokeColor=#666666;fontColor=#333333;"
+          vertex="1" parent="1">
+          <mxGeometry x="20" y="42" width="120" height="22" as="geometry"/>
+        </mxCell>
+
+        <!-- Hold -->
+        <mxCell id="hold_h" value="Hold"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1" parent="1">
+          <mxGeometry x="45" y="80" width="180" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="hold_b" value="- id : UUID&#xa;- userId : UUID&#xa;- hotelId : UUID&#xa;- expiresAt : DateTime&#xa;- status : HoldStatus"
+          style="text;html=1;align=left;verticalAlign=top;spacingLeft=5;fontSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;whiteSpace=wrap;"
+          vertex="1" parent="1">
+          <mxGeometry x="45" y="108" width="180" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- HoldRoom -->
+        <mxCell id="hroom_h" value="HoldRoom"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1" parent="1">
+          <mxGeometry x="270" y="80" width="185" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="hroom_b" value="- holdId : UUID&#xa;- roomId : UUID&#xa;- quantity : Integer&#xa;- checkIn : Date&#xa;- checkOut : Date"
+          style="text;html=1;align=left;verticalAlign=top;spacingLeft=5;fontSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;whiteSpace=wrap;"
+          vertex="1" parent="1">
+          <mxGeometry x="270" y="108" width="185" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Booking -->
+        <mxCell id="book_h" value="Booking"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1" parent="1">
+          <mxGeometry x="510" y="80" width="195" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="book_b" value="- id : UUID&#xa;- userId : UUID&#xa;- totalAmount : Decimal&#xa;- status : BookingStatus&#xa;- checkIn : Date&#xa;- checkOut : Date"
+          style="text;html=1;align=left;verticalAlign=top;spacingLeft=5;fontSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;whiteSpace=wrap;"
+          vertex="1" parent="1">
+          <mxGeometry x="510" y="108" width="195" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- BookingRoom -->
+        <mxCell id="broom_h" value="BookingRoom"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1" parent="1">
+          <mxGeometry x="760" y="80" width="195" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="broom_b" value="- bookingId : UUID&#xa;- roomId : UUID&#xa;- pricePerNight : Decimal"
+          style="text;html=1;align=left;verticalAlign=top;spacingLeft=5;fontSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;whiteSpace=wrap;"
+          vertex="1" parent="1">
+          <mxGeometry x="760" y="108" width="195" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Payment -->
+        <mxCell id="pay_h" value="Payment"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1" parent="1">
+          <mxGeometry x="1010" y="80" width="210" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="pay_b" value="- id : UUID&#xa;- bookingId : UUID&#xa;- stripePaymentId : String&#xa;- amount : Decimal&#xa;- status : PaymentStatus"
+          style="text;html=1;align=left;verticalAlign=top;spacingLeft=5;fontSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;whiteSpace=wrap;"
+          vertex="1" parent="1">
+          <mxGeometry x="1010" y="108" width="210" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- LedgerEntry -->
+        <mxCell id="led_h" value="LedgerEntry"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1" parent="1">
+          <mxGeometry x="510" y="280" width="195" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="led_b" value="- id : UUID&#xa;- paymentId : UUID&#xa;- entryType : EntryType&#xa;- amount : Decimal"
+          style="text;html=1;align=left;verticalAlign=top;spacingLeft=5;fontSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;whiteSpace=wrap;"
+          vertex="1" parent="1">
+          <mxGeometry x="510" y="308" width="195" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- IdempotencyKey -->
+        <mxCell id="ikey_h" value="IdempotencyKey"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;"
+          vertex="1" parent="1">
+          <mxGeometry x="760" y="280" width="195" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="ikey_b" value="- key : String&#xa;- requestBody : JSON&#xa;- status : KeyStatus"
+          style="text;html=1;align=left;verticalAlign=top;spacingLeft=5;fontSize=12;fillColor=#dae8fc;strokeColor=#6c8ebf;whiteSpace=wrap;"
+          vertex="1" parent="1">
+          <mxGeometry x="760" y="308" width="195" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- ENTITY RELATIONS                  -->
+        <!-- ═══════════════════════════════════ -->
+
+        <!-- Hold 1──>* HoldRoom -->
+        <mxCell id="e1" value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;strokeColor=#6c8ebf;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"
+          edge="1" parent="1" source="hold_h" target="hroom_h">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1s" value="1" style="resizable=0;html=1;fontSize=11;labelBackgroundColor=none;" connectable="0" vertex="1" parent="e1">
+          <mxGeometry x="-0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e1t" value="*" style="resizable=0;html=1;fontSize=11;labelBackgroundColor=none;" connectable="0" vertex="1" parent="e1">
+          <mxGeometry x="0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="-10" y="-10"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Hold --dashed--> Booking (converts) -->
+        <mxCell id="e2" value="&lt;&lt;converts&gt;&gt;"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#6c8ebf;fontSize=11;"
+          edge="1" parent="1" source="hold_h" target="book_h">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="135" y="68"/>
+              <mxPoint x="607" y="68"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Booking 1──>* BookingRoom -->
+        <mxCell id="e3" value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;strokeColor=#6c8ebf;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"
+          edge="1" parent="1" source="book_h" target="broom_h">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3s" value="1" style="resizable=0;html=1;fontSize=11;labelBackgroundColor=none;" connectable="0" vertex="1" parent="e3">
+          <mxGeometry x="-0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e3t" value="*" style="resizable=0;html=1;fontSize=11;labelBackgroundColor=none;" connectable="0" vertex="1" parent="e3">
+          <mxGeometry x="0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="-10" y="-10"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Booking 1──>1 Payment (via top route) -->
+        <mxCell id="e4" value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;strokeColor=#6c8ebf;"
+          edge="1" parent="1" source="book_h" target="pay_h">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="607" y="68"/>
+              <mxPoint x="1115" y="68"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4s" value="1" style="resizable=0;html=1;fontSize=11;labelBackgroundColor=none;" connectable="0" vertex="1" parent="e4">
+          <mxGeometry x="-0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e4t" value="1" style="resizable=0;html=1;fontSize=11;labelBackgroundColor=none;" connectable="0" vertex="1" parent="e4">
+          <mxGeometry x="0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="-10" y="-10"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Payment 1──>* LedgerEntry -->
+        <mxCell id="e5" value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endFill=0;strokeColor=#6c8ebf;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;"
+          edge="1" parent="1" source="pay_h" target="led_h">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="970" y="94"/>
+              <mxPoint x="970" y="294"/>
+              <mxPoint x="745" y="294"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5s" value="1" style="resizable=0;html=1;fontSize=11;labelBackgroundColor=none;" connectable="0" vertex="1" parent="e5">
+          <mxGeometry x="-0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e5t" value="*" style="resizable=0;html=1;fontSize=11;labelBackgroundColor=none;" connectable="0" vertex="1" parent="e5">
+          <mxGeometry x="0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="-10" y="-10"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Payment 1---dashed---1 IdempotencyKey -->
+        <mxCell id="e6" value=""
+          style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#6c8ebf;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;"
+          edge="1" parent="1" source="pay_b" target="ikey_h">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1080" y="258"/>
+              <mxPoint x="1080" y="294"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6s" value="1" style="resizable=0;html=1;fontSize=11;labelBackgroundColor=none;" connectable="0" vertex="1" parent="e6">
+          <mxGeometry x="-0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e6t" value="1" style="resizable=0;html=1;fontSize=11;labelBackgroundColor=none;" connectable="0" vertex="1" parent="e6">
+          <mxGeometry x="0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="-10" y="-10"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- SERVICES PACKAGE                  -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="pkg_svc" value=""
+          style="rounded=0;html=1;fillColor=#f9fff9;strokeColor=#82b366;verticalAlign=top;"
+          vertex="1" parent="1">
+          <mxGeometry x="20" y="490" width="1460" height="175" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg_svc_lbl" value="services"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=12;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#333333;"
+          vertex="1" parent="1">
+          <mxGeometry x="20" y="477" width="120" height="22" as="geometry"/>
+        </mxCell>
+
+        <!-- HoldService -->
+        <mxCell id="hs_h" value="&lt;&lt;service&gt;&gt;&#xa;HoldService"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1" parent="1">
+          <mxGeometry x="45" y="510" width="215" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="hs_b" value="+ createHold() : Hold&#xa;+ expireHold(id) : void"
+          style="text;html=1;align=left;verticalAlign=top;spacingLeft=5;fontSize=12;fillColor=#d5e8d4;strokeColor=#82b366;whiteSpace=wrap;"
+          vertex="1" parent="1">
+          <mxGeometry x="45" y="554" width="215" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- BookingService -->
+        <mxCell id="bs_h" value="&lt;&lt;service&gt;&gt;&#xa;BookingService"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1" parent="1">
+          <mxGeometry x="360" y="510" width="235" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="bs_b" value="+ confirmBooking() : Booking&#xa;+ cancelBooking(id) : void"
+          style="text;html=1;align=left;verticalAlign=top;spacingLeft=5;fontSize=12;fillColor=#d5e8d4;strokeColor=#82b366;whiteSpace=wrap;"
+          vertex="1" parent="1">
+          <mxGeometry x="360" y="554" width="235" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- PaymentService -->
+        <mxCell id="ps_h" value="&lt;&lt;service&gt;&gt;&#xa;PaymentService"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1" parent="1">
+          <mxGeometry x="700" y="510" width="250" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="ps_b" value="+ createPaymentIntent() : Intent&#xa;+ handleWebhook(event) : void"
+          style="text;html=1;align=left;verticalAlign=top;spacingLeft=5;fontSize=12;fillColor=#d5e8d4;strokeColor=#82b366;whiteSpace=wrap;"
+          vertex="1" parent="1">
+          <mxGeometry x="700" y="554" width="250" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- LedgerService -->
+        <mxCell id="ls_h" value="&lt;&lt;service&gt;&gt;&#xa;LedgerService"
+          style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontStyle=1;fillColor=#d5e8d4;strokeColor=#82b366;"
+          vertex="1" parent="1">
+          <mxGeometry x="1060" y="510" width="235" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="ls_b" value="+ createEntries() : void&#xa;+ getBalance() : Decimal"
+          style="text;html=1;align=left;verticalAlign=top;spacingLeft=5;fontSize=12;fillColor=#d5e8d4;strokeColor=#82b366;whiteSpace=wrap;"
+          vertex="1" parent="1">
+          <mxGeometry x="1060" y="554" width="235" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- SERVICE DEPENDENCIES              -->
+        <!-- ═══════════════════════════════════ -->
+
+        <!-- HoldService --<<converts>>--> BookingService -->
+        <mxCell id="d1" value="&lt;&lt;converts&gt;&gt;"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#82b366;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"
+          edge="1" parent="1" source="hs_h" target="bs_h">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- BookingService --<<call>>--> PaymentService -->
+        <mxCell id="d2" value="&lt;&lt;call&gt;&gt;"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#82b366;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"
+          edge="1" parent="1" source="bs_h" target="ps_h">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- PaymentService --<<call>>--> LedgerService -->
+        <mxCell id="d3" value="&lt;&lt;call&gt;&gt;"
+          style="edgeStyle=orthogonalEdgeStyle;html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#82b366;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;"
+          edge="1" parent="1" source="ps_h" target="ls_h">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════ -->
+        <!-- LEGEND                            -->
+        <!-- ═══════════════════════════════════ -->
+        <mxCell id="lgnd" value=""
+          style="rounded=0;html=1;fillColor=#ffffff;strokeColor=#666666;"
+          vertex="1" parent="1">
+          <mxGeometry x="20" y="695" width="430" height="165" as="geometry"/>
+        </mxCell>
+        <mxCell id="lgnd_t" value="Legend"
+          style="text;html=1;align=left;fontSize=13;fontStyle=1;fillColor=none;strokeColor=none;"
+          vertex="1" parent="1">
+          <mxGeometry x="36" y="703" width="80" height="20" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="lg1" value="" style="fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="36" y="730" width="22" height="13" as="geometry"/>
+        </mxCell>
+        <mxCell id="lg1t" value="Entity class"
+          style="text;html=1;align=left;fontSize=11;fillColor=none;strokeColor=none;"
+          vertex="1" parent="1">
+          <mxGeometry x="64" y="727" width="300" height="18" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="lg2" value="" style="fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="36" y="750" width="22" height="13" as="geometry"/>
+        </mxCell>
+        <mxCell id="lg2t" value="Service class  &lt;&lt;service&gt;&gt;"
+          style="text;html=1;align=left;fontSize=11;fillColor=none;strokeColor=none;"
+          vertex="1" parent="1">
+          <mxGeometry x="64" y="747" width="300" height="18" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="lg3" value="" style="html=1;endArrow=open;endFill=0;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="sourcePoint"><mxPoint x="36" y="774"/></Array>
+            <Array as="targetPoint"><mxPoint x="96" y="774"/></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lg3t" value="Association (multiplicities at ends)"
+          style="text;html=1;align=left;fontSize=11;fillColor=none;strokeColor=none;"
+          vertex="1" parent="1">
+          <mxGeometry x="104" y="766" width="300" height="18" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="lg4" value="" style="html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#82b366;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="sourcePoint"><mxPoint x="36" y="798"/></Array>
+            <Array as="targetPoint"><mxPoint x="96" y="798"/></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lg4t" value="Dependency  &lt;&lt;call&gt;&gt; / &lt;&lt;converts&gt;&gt;"
+          style="text;html=1;align=left;fontSize=11;fillColor=none;strokeColor=none;"
+          vertex="1" parent="1">
+          <mxGeometry x="104" y="790" width="300" height="18" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="lg5" value="" style="html=1;dashed=1;endArrow=open;endFill=0;strokeColor=#6c8ebf;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="sourcePoint"><mxPoint x="36" y="822"/></Array>
+            <Array as="targetPoint"><mxPoint x="96" y="822"/></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lg5t" value="Entity lifecycle dependency  &lt;&lt;converts&gt;&gt;"
+          style="text;html=1;align=left;fontSize=11;fillColor=none;strokeColor=none;"
+          vertex="1" parent="1">
+          <mxGeometry x="104" y="814" width="310" height="18" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

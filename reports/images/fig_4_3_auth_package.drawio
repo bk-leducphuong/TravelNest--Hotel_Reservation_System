@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="Auth Package Diagram">
+    <mxGraphModel dx="1400" dy="1050" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1080">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PACKAGE: entities  (tabbed folder shape)                   -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="pkg_entities" value="entities" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#4472C4;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;tabWidth=52;tabHeight=16;" vertex="1" parent="1">
+          <mxGeometry x="30" y="30" width="880" height="560" as="geometry"/>
+        </mxCell>
+
+        <!-- ─── User class ─────────────────────────────────────────── -->
+        <!-- name compartment -->
+        <mxCell id="user_hdr" value="&lt;font style=&quot;font-size:11px;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;entity&amp;gt;&amp;gt;&lt;/i&gt;&lt;/font&gt;&lt;br/&gt;&lt;b&gt;User&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="70" y="90" width="190" height="45" as="geometry"/>
+        </mxCell>
+        <!-- attributes compartment -->
+        <mxCell id="user_attrs" value="- id : string&#xa;- email : string&#xa;- passwordHash : string&#xa;- firstName : string&#xa;- lastName : string" style="text;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;spacingLeft=6;whiteSpace=pre;" vertex="1" parent="1">
+          <mxGeometry x="70" y="135" width="190" height="95" as="geometry"/>
+        </mxCell>
+
+        <!-- ─── AuthAccount class ──────────────────────────────────── -->
+        <mxCell id="aa_hdr" value="&lt;font style=&quot;font-size:11px;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;entity&amp;gt;&amp;gt;&lt;/i&gt;&lt;/font&gt;&lt;br/&gt;&lt;b&gt;AuthAccount&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="340" y="90" width="190" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="aa_attrs" value="- provider : string&#xa;- providerId : string&#xa;- userId : string" style="text;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;spacingLeft=6;whiteSpace=pre;" vertex="1" parent="1">
+          <mxGeometry x="340" y="135" width="190" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- ─── Role class ─────────────────────────────────────────── -->
+        <mxCell id="role_hdr" value="&lt;font style=&quot;font-size:11px;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;entity&amp;gt;&amp;gt;&lt;/i&gt;&lt;/font&gt;&lt;br/&gt;&lt;b&gt;Role&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="640" y="90" width="190" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="role_attrs" value="- id : string&#xa;- name : string" style="text;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;spacingLeft=6;whiteSpace=pre;" vertex="1" parent="1">
+          <mxGeometry x="640" y="135" width="190" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ─── UserRole class ─────────────────────────────────────── -->
+        <mxCell id="ur_hdr" value="&lt;font style=&quot;font-size:11px;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;entity&amp;gt;&amp;gt;&lt;/i&gt;&lt;/font&gt;&lt;br/&gt;&lt;b&gt;UserRole&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="70" y="360" width="190" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="ur_attrs" value="- userId : string&#xa;- roleId : string" style="text;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;spacingLeft=6;whiteSpace=pre;" vertex="1" parent="1">
+          <mxGeometry x="70" y="405" width="190" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ─── Permission class ───────────────────────────────────── -->
+        <mxCell id="perm_hdr" value="&lt;font style=&quot;font-size:11px;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;entity&amp;gt;&amp;gt;&lt;/i&gt;&lt;/font&gt;&lt;br/&gt;&lt;b&gt;Permission&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="340" y="360" width="190" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="perm_attrs" value="- id : string&#xa;- name : string&#xa;- resource : string" style="text;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;spacingLeft=6;whiteSpace=pre;" vertex="1" parent="1">
+          <mxGeometry x="340" y="405" width="190" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- ─── RolePermission class ───────────────────────────────── -->
+        <mxCell id="rp_hdr" value="&lt;font style=&quot;font-size:11px;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;entity&amp;gt;&amp;gt;&lt;/i&gt;&lt;/font&gt;&lt;br/&gt;&lt;b&gt;RolePermission&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="640" y="360" width="190" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="rp_attrs" value="- roleId : string&#xa;- permissionId : string" style="text;html=1;align=left;verticalAlign=top;fillColor=#dae8fc;strokeColor=#4472C4;fontSize=12;spacingLeft=6;whiteSpace=pre;" vertex="1" parent="1">
+          <mxGeometry x="640" y="405" width="190" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- ASSOCIATIONS inside entities package                        -->
+        <!-- All: solid line, no arrowhead, multiplicities at ends       -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+
+        <!-- User 1 ──── * AuthAccount -->
+        <mxCell id="a_user_aa" value="" style="endArrow=none;startArrow=none;html=1;strokeColor=#333333;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="user_hdr" target="aa_hdr">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_user_aa_s" value="1" style="resizable=0;html=1;fontSize=11;align=left;" connectable="0" vertex="1" parent="a_user_aa">
+          <mxGeometry x="-0.85" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="a_user_aa_t" value="*" style="resizable=0;html=1;fontSize=11;align=right;" connectable="0" vertex="1" parent="a_user_aa">
+          <mxGeometry x="0.85" relative="1" as="geometry"><Array as="offset"><mxPoint x="-10" y="-10"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- User 1 ──── * UserRole -->
+        <mxCell id="a_user_ur" value="" style="endArrow=none;startArrow=none;html=1;strokeColor=#333333;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="user_hdr" target="ur_hdr">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_user_ur_s" value="1" style="resizable=0;html=1;fontSize=11;" connectable="0" vertex="1" parent="a_user_ur">
+          <mxGeometry x="-0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="a_user_ur_t" value="*" style="resizable=0;html=1;fontSize=11;" connectable="0" vertex="1" parent="a_user_ur">
+          <mxGeometry x="0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Role 1 ──── * UserRole -->
+        <mxCell id="a_role_ur" value="" style="endArrow=none;startArrow=none;html=1;strokeColor=#333333;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="role_hdr" target="ur_hdr">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="620" y="112"/><mxPoint x="30" y="112"/><mxPoint x="30" y="382"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="a_role_ur_s" value="1" style="resizable=0;html=1;fontSize=11;" connectable="0" vertex="1" parent="a_role_ur">
+          <mxGeometry x="-0.85" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="a_role_ur_t" value="*" style="resizable=0;html=1;fontSize=11;" connectable="0" vertex="1" parent="a_role_ur">
+          <mxGeometry x="0.85" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Role 1 ──── * RolePermission -->
+        <mxCell id="a_role_rp" value="" style="endArrow=none;startArrow=none;html=1;strokeColor=#333333;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="role_hdr" target="rp_hdr">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_role_rp_s" value="1" style="resizable=0;html=1;fontSize=11;" connectable="0" vertex="1" parent="a_role_rp">
+          <mxGeometry x="-0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="a_role_rp_t" value="*" style="resizable=0;html=1;fontSize=11;" connectable="0" vertex="1" parent="a_role_rp">
+          <mxGeometry x="0.8" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- Permission 1 ──── * RolePermission -->
+        <mxCell id="a_perm_rp" value="" style="endArrow=none;startArrow=none;html=1;strokeColor=#333333;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="perm_hdr" target="rp_hdr">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a_perm_rp_s" value="1" style="resizable=0;html=1;fontSize=11;" connectable="0" vertex="1" parent="a_perm_rp">
+          <mxGeometry x="-0.85" relative="1" as="geometry"><Array as="offset"><mxPoint x="5" y="-10"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="a_perm_rp_t" value="*" style="resizable=0;html=1;fontSize=11;" connectable="0" vertex="1" parent="a_perm_rp">
+          <mxGeometry x="0.85" relative="1" as="geometry"><Array as="offset"><mxPoint x="-10" y="-10"/></Array></mxGeometry>
+        </mxCell>
+
+        <!-- UserRole ──── Permission (join semantics) -->
+        <mxCell id="a_ur_perm" value="" style="endArrow=none;startArrow=none;html=1;strokeColor=#333333;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ur_hdr" target="perm_hdr">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PACKAGE: auth.service                                       -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="pkg_svc" value="auth.service" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#f0fff0;strokeColor=#2d6a2d;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;tabWidth=58;tabHeight=16;" vertex="1" parent="1">
+          <mxGeometry x="30" y="660" width="380" height="200" as="geometry"/>
+        </mxCell>
+
+        <!-- ─── AuthService class ──────────────────────────────────── -->
+        <mxCell id="svc_hdr" value="&lt;font style=&quot;font-size:11px;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;service&amp;gt;&amp;gt;&lt;/i&gt;&lt;/font&gt;&lt;br/&gt;&lt;b&gt;AuthService&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#d5e8d4;strokeColor=#2d6a2d;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="80" y="710" width="260" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="svc_methods" value="+ register() : Promise&lt;User&gt;&#xa;+ login() : Promise&lt;Token&gt;&#xa;+ logout() : Promise&lt;void&gt;" style="text;html=1;align=left;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#2d6a2d;fontSize=12;spacingLeft=6;whiteSpace=pre;" vertex="1" parent="1">
+          <mxGeometry x="80" y="755" width="260" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- PACKAGE: passport.middleware                                -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="pkg_mw" value="passport.middleware" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#fffef0;strokeColor=#7d5a00;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=10;tabWidth=88;tabHeight=16;" vertex="1" parent="1">
+          <mxGeometry x="530" y="660" width="380" height="200" as="geometry"/>
+        </mxCell>
+
+        <!-- ─── PassportMiddleware class ───────────────────────────── -->
+        <mxCell id="mw_hdr" value="&lt;font style=&quot;font-size:11px;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;middleware&amp;gt;&amp;gt;&lt;/i&gt;&lt;/font&gt;&lt;br/&gt;&lt;b&gt;PassportMiddleware&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;fillColor=#fff2cc;strokeColor=#7d5a00;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="560" y="710" width="320" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="mw_methods" value="+ LocalStrategy() : Strategy&#xa;+ GoogleStrategy() : Strategy&#xa;+ TwitterStrategy() : Strategy" style="text;html=1;align=left;verticalAlign=top;fillColor=#fff2cc;strokeColor=#7d5a00;fontSize=12;spacingLeft=6;whiteSpace=pre;" vertex="1" parent="1">
+          <mxGeometry x="560" y="755" width="320" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- INTER-PACKAGE DEPENDENCY ARROWS                             -->
+        <!-- dashed line, open arrowhead pointing TO the dependency      -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+
+        <!-- auth.service ──<<use>>──▷ entities -->
+        <mxCell id="dep_svc_ent" value="&lt;i&gt;&amp;lt;&amp;lt;use&amp;gt;&amp;gt;&lt;/i&gt;" style="dashed=1;endArrow=open;endFill=0;startArrow=none;html=1;strokeColor=#444444;fontSize=11;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.12;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="pkg_svc" target="pkg_entities">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- auth.service ──<<use>>──▷ passport.middleware -->
+        <mxCell id="dep_svc_mw" value="&lt;i&gt;&amp;lt;&amp;lt;use&amp;gt;&amp;gt;&lt;/i&gt;" style="dashed=1;endArrow=open;endFill=0;startArrow=none;html=1;strokeColor=#444444;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pkg_svc" target="pkg_mw">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- passport.middleware ──<<use>>──▷ entities -->
+        <mxCell id="dep_mw_ent" value="&lt;i&gt;&amp;lt;&amp;lt;use&amp;gt;&amp;gt;&lt;/i&gt;" style="dashed=1;endArrow=open;endFill=0;startArrow=none;html=1;strokeColor=#444444;fontSize=11;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.88;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="pkg_mw" target="pkg_entities">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- LEGEND                                                      -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="legend_bg" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f9f9f9;strokeColor=#888888;" vertex="1" parent="1">
+          <mxGeometry x="960" y="30" width="235" height="195" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend_title" value="Legend" style="text;html=1;fontStyle=1;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="960" y="38" width="235" height="22" as="geometry"/>
+        </mxCell>
+        <!-- entity swatch -->
+        <mxCell id="ls_ent" value="" style="fillColor=#dae8fc;strokeColor=#4472C4;" vertex="1" parent="1">
+          <mxGeometry x="975" y="70" width="26" height="16" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll_ent" value="Entity class  &amp;lt;&amp;lt;entity&amp;gt;&amp;gt;" style="text;html=1;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="68" width="175" height="20" as="geometry"/>
+        </mxCell>
+        <!-- service swatch -->
+        <mxCell id="ls_svc" value="" style="fillColor=#d5e8d4;strokeColor=#2d6a2d;" vertex="1" parent="1">
+          <mxGeometry x="975" y="100" width="26" height="16" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll_svc" value="Service class  &amp;lt;&amp;lt;service&amp;gt;&amp;gt;" style="text;html=1;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="98" width="175" height="20" as="geometry"/>
+        </mxCell>
+        <!-- middleware swatch -->
+        <mxCell id="ls_mw" value="" style="fillColor=#fff2cc;strokeColor=#7d5a00;" vertex="1" parent="1">
+          <mxGeometry x="975" y="130" width="26" height="16" as="geometry"/>
+        </mxCell>
+        <mxCell id="ll_mw" value="Middleware  &amp;lt;&amp;lt;middleware&amp;gt;&amp;gt;" style="text;html=1;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="128" width="175" height="20" as="geometry"/>
+        </mxCell>
+        <!-- assoc line sample -->
+        <mxCell id="ls_assoc" value="" style="endArrow=none;startArrow=none;html=1;strokeColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="975" y="162"/><mxPoint x="1001" y="162"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ll_assoc" value="Association (1..*)" style="text;html=1;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="154" width="175" height="20" as="geometry"/>
+        </mxCell>
+        <!-- dep arrow sample -->
+        <mxCell id="ls_dep" value="" style="dashed=1;endArrow=open;endFill=0;html=1;strokeColor=#444444;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="975" y="192"/><mxPoint x="1001" y="192"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ll_dep" value="Dependency  &amp;lt;&amp;lt;use&amp;gt;&amp;gt;" style="text;html=1;fontSize=12;align=left;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="184" width="175" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <!-- TITLE                                                       -->
+        <!-- ═══════════════════════════════════════════════════════════ -->
+        <mxCell id="title" value="Fig 4.3 — Auth Service Package Diagram" style="text;html=1;fontStyle=1;fontSize=15;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="30" y="900" width="880" height="30" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

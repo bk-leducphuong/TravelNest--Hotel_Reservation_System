@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="Page-1">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Diagram title -->
+        <mxCell id="2" value="Hình 2.3: Sơ đồ Use Case - Quản lý khách sạn" style="text;html=1;align=center;verticalAlign=middle;fontStyle=1;fontSize=14;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="100" y="20" width="1200" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- System boundary: plain rectangle -->
+        <mxCell id="3" value="Hệ thống - Quản lý khách sạn" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=13;fontStyle=1;verticalAlign=top;spacingTop=8;container=1;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="200" y="60" width="950" height="860" as="geometry"/>
+        </mxCell>
+
+        <!-- Actor 1: Hotel Admin (left of boundary) -->
+        <mxCell id="4" value="Chủ khách sạn&#xa;(Hotel Admin)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="430" width="40" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Actor 2: Staff (right of boundary) -->
+        <mxCell id="5" value="Nhân viên&#xa;(Staff)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="430" width="40" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Use cases — arranged in two columns inside the boundary -->
+        <!-- Left column: Admin-primary use cases -->
+
+        <!-- UC1: Thêm khách sạn mới -->
+        <mxCell id="6" value="Thêm khách sạn mới" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#23445d;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="80" y="100" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- UC2: Cập nhật thông tin khách sạn -->
+        <mxCell id="7" value="Cập nhật thông tin&#xa;khách sạn" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#23445d;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="80" y="210" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- UC3: Quản lý phòng -->
+        <mxCell id="8" value="Quản lý phòng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#23445d;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="80" y="320" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- UC4: Quản lý chính sách hủy phòng -->
+        <mxCell id="9" value="Quản lý chính sách&#xa;hủy phòng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#23445d;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="80" y="430" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- UC5: Quản lý ảnh khách sạn -->
+        <mxCell id="10" value="Quản lý ảnh&#xa;khách sạn" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#23445d;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="80" y="540" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- UC6: Quản lý tiện nghi -->
+        <mxCell id="11" value="Quản lý tiện nghi" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#23445d;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="80" y="650" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- Right column: include/extend targets and staff use cases -->
+
+        <!-- UC7: Quản lý giá & tình trạng phòng (include from UC3) -->
+        <mxCell id="12" value="Quản lý giá &amp;&#xa;tình trạng phòng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="600" y="210" width="200" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- UC8: Thêm thông tin phòng (include from UC3) -->
+        <mxCell id="13" value="Thêm thông tin phòng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="600" y="320" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- UC9: Cập nhật thông tin phòng (include from UC3) -->
+        <mxCell id="14" value="Cập nhật thông tin&#xa;phòng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="600" y="430" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- UC10: Xem báo cáo doanh thu (Staff use case) -->
+        <mxCell id="15" value="Xem báo cáo&#xa;doanh thu" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#23445d;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="600" y="540" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- UC11: Quản lý đặt phòng (Staff + Admin) -->
+        <mxCell id="16" value="Quản lý đặt phòng" style="ellipse;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#23445d;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="600" y="650" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== ASSOCIATIONS: plain straight lines, NO arrowheads ===== -->
+
+        <!-- Admin -> UC1 Thêm khách sạn mới -->
+        <mxCell id="20" value="" style="endArrow=none;startArrow=none;edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Admin -> UC2 Cập nhật thông tin khách sạn -->
+        <mxCell id="21" value="" style="endArrow=none;startArrow=none;edgeStyle=none;html=1;exitX=1;exitY=0.45;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="7">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Admin -> UC3 Quản lý phòng -->
+        <mxCell id="22" value="" style="endArrow=none;startArrow=none;edgeStyle=none;html=1;exitX=1;exitY=0.4;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="8">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Admin -> UC4 Quản lý chính sách hủy phòng -->
+        <mxCell id="23" value="" style="endArrow=none;startArrow=none;edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Admin -> UC5 Quản lý ảnh khách sạn -->
+        <mxCell id="24" value="" style="endArrow=none;startArrow=none;edgeStyle=none;html=1;exitX=1;exitY=0.55;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="10">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Admin -> UC6 Quản lý tiện nghi -->
+        <mxCell id="25" value="" style="endArrow=none;startArrow=none;edgeStyle=none;html=1;exitX=1;exitY=0.6;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="11">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Staff -> UC10 Xem báo cáo doanh thu -->
+        <mxCell id="26" value="" style="endArrow=none;startArrow=none;edgeStyle=none;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="5" target="15">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Staff -> UC11 Quản lý đặt phòng -->
+        <mxCell id="27" value="" style="endArrow=none;startArrow=none;edgeStyle=none;html=1;exitX=0;exitY=0.55;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="5" target="16">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Admin -> UC11 Quản lý đặt phòng (shared) -->
+        <mxCell id="28" value="" style="endArrow=none;startArrow=none;edgeStyle=none;html=1;exitX=1;exitY=0.65;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="16">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== UML RELATIONSHIPS inside system boundary ===== -->
+
+        <!-- <<include>>: Quản lý phòng (UC3) -> Quản lý giá & tình trạng phòng (UC7) -->
+        <mxCell id="30" value="&lt;&lt;include&gt;&gt;" style="endArrow=open;endFill=0;dashed=1;dashPattern=8 4;html=1;rounded=0;fontSize=11;exitX=1;exitY=0.3;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="3" source="8" target="12">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- <<include>>: Quản lý phòng (UC3) -> Thêm thông tin phòng (UC8) -->
+        <mxCell id="31" value="&lt;&lt;include&gt;&gt;" style="endArrow=open;endFill=0;dashed=1;dashPattern=8 4;html=1;rounded=0;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="3" source="8" target="13">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- <<include>>: Quản lý phòng (UC3) -> Cập nhật thông tin phòng (UC9) -->
+        <mxCell id="32" value="&lt;&lt;include&gt;&gt;" style="endArrow=open;endFill=0;dashed=1;dashPattern=8 4;html=1;rounded=0;fontSize=11;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="3" source="8" target="14">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- <<extend>>: Cập nhật thông tin khách sạn -extends-> Thêm khách sạn mới -->
+        <!-- Arrow points from extending UC to base UC (open arrowhead at base UC) -->
+        <mxCell id="33" value="&lt;&lt;extend&gt;&gt;" style="endArrow=open;endFill=0;dashed=1;dashPattern=8 4;html=1;rounded=0;fontSize=11;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="3" source="7" target="6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Legend box -->
+        <mxCell id="40" value="Chú thích" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;verticalAlign=top;fontStyle=1;fontSize=12;" vertex="1" parent="3">
+          <mxGeometry x="680" y="750" width="220" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="41" value="" style="endArrow=none;startArrow=none;edgeStyle=none;html=1;" edge="1" parent="3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="695" y="785" as="sourcePoint"/>
+            <mxPoint x="740" y="785" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="42" value="Kết hợp (association)" style="text;html=1;align=left;fontSize=11;" vertex="1" parent="3">
+          <mxGeometry x="748" y="775" width="140" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="43" value="" style="endArrow=open;endFill=0;dashed=1;dashPattern=8 4;html=1;" edge="1" parent="3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="695" y="810" as="sourcePoint"/>
+            <mxPoint x="740" y="810" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="44" value="&lt;&lt;include&gt;&gt; / &lt;&lt;extend&gt;&gt;" style="text;html=1;align=left;fontSize=11;" vertex="1" parent="3">
+          <mxGeometry x="748" y="800" width="145" height="20" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

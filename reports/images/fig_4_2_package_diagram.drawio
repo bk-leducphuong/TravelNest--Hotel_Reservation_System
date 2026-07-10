@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="Package Diagram">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1050">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="100" value="Figure 4.2 – Package Diagram: TravelNest Server Module Structure" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="150" y="20" width="1060" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Outer boundary: Server Application -->
+        <mxCell id="200" value="&lt;&lt;system&gt;&gt;&#xa;Server Application" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f9f9f9;strokeColor=#444444;fontStyle=1;fontSize=13;verticalAlign=top;dashed=0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="65" width="1060" height="540" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== ROW 1: Entry Layer ==================== -->
+
+        <!-- Routes -->
+        <mxCell id="2" value="&lt;&lt;package&gt;&gt;&#xa;Routes (v1/)" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="130" y="140" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Middlewares -->
+        <mxCell id="3" value="&lt;&lt;package&gt;&gt;&#xa;Middlewares" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="370" y="140" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Controllers -->
+        <mxCell id="4" value="&lt;&lt;package&gt;&gt;&#xa;Controllers" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="610" y="140" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Validators -->
+        <mxCell id="5" value="&lt;&lt;package&gt;&gt;&#xa;Validators (Joi)" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="850" y="140" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== ROW 2: Business Logic Layer ==================== -->
+
+        <!-- Services -->
+        <mxCell id="6" value="&lt;&lt;package&gt;&gt;&#xa;Services&#xa;(Business Logic)" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="370" y="290" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Events -->
+        <mxCell id="9" value="&lt;&lt;package&gt;&gt;&#xa;Events&#xa;(NATS Publisher)" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="130" y="290" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Queues & Workers -->
+        <mxCell id="10" value="&lt;&lt;package&gt;&gt;&#xa;Queues &amp; Workers&#xa;(BullMQ)" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="610" y="290" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Adapters -->
+        <mxCell id="11" value="&lt;&lt;package&gt;&gt;&#xa;Adapters&#xa;(Stripe, Email)" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="850" y="290" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== ROW 3: Data Access Layer ==================== -->
+
+        <!-- Repositories -->
+        <mxCell id="7" value="&lt;&lt;package&gt;&gt;&#xa;Repositories&#xa;(Data Access)" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="370" y="440" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Socket.IO -->
+        <mxCell id="12" value="&lt;&lt;package&gt;&gt;&#xa;Socket.IO" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="130" y="440" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Models -->
+        <mxCell id="8" value="&lt;&lt;package&gt;&gt;&#xa;Models&#xa;(Sequelize ORM)" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="610" y="440" width="180" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== LEGEND ==================== -->
+        <mxCell id="300" value="Legend" style="text;html=1;strokeColor=#444444;fillColor=#f5f5f5;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="130" y="570" width="900" height="30" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="301" value="" style="edgeStyle=none;dashed=1;endArrow=open;endSize=8;html=1;" edge="1" parent="1">
+          <mxGeometry x="140" y="615" width="80" height="10" as="geometry">
+            <Array as="points"/>
+          </mxGeometry>
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="150" y="615" as="sourcePoint"/>
+            <mxPoint x="250" y="615" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="302" value="«use» dependency (dashed arrow)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="260" y="605" width="260" height="24" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="303" value="&lt;&lt;package&gt;&gt;&#xa;Package Name" style="shape=mxgraph.uml.package;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="550" y="598" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="304" value="UML Package (tabbed)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="700" y="610" width="200" height="24" as="geometry"/>
+        </mxCell>
+
+        <!-- Color key -->
+        <mxCell id="305" value="Entry (blue)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="130" y="665" width="110" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="306" value="Middleware (purple)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="250" y="665" width="140" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="307" value="Controllers (orange)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="400" y="665" width="140" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="308" value="Validators (red)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="550" y="665" width="120" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="309" value="Services (green)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="665" width="120" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="310" value="Data / Infra (gray/yellow)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="810" y="665" width="180" height="28" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== DEPENDENCY EDGES ==================== -->
+
+        <!-- Routes -> Controllers (<<use>>) -->
+        <mxCell id="13" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="2" target="4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Routes -> Middlewares (<<use>>) -->
+        <mxCell id="14" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="2" target="3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Middlewares -> Controllers (<<use>>) -->
+        <mxCell id="15" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="3" target="4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Controllers -> Validators (<<use>>) -->
+        <mxCell id="16" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Middlewares -> Validators (<<use>>) -->
+        <mxCell id="17" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;" edge="1" parent="1" source="3" target="5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="460" y="120"/>
+              <mxPoint x="940" y="120"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Controllers -> Services (<<use>>) -->
+        <mxCell id="18" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Controllers -> Queues & Workers (<<use>>) -->
+        <mxCell id="19" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="10">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Controllers -> Socket.IO (<<use>>) -->
+        <mxCell id="20" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4" target="12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="175"/>
+              <mxPoint x="560" y="475"/>
+              <mxPoint x="310" y="475"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Services -> Repositories (<<use>>) -->
+        <mxCell id="21" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="6" target="7">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Services -> Events (<<use>>) -->
+        <mxCell id="22" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6" target="9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Services -> Queues & Workers (<<use>>) -->
+        <mxCell id="23" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6" target="10">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Services -> Adapters (<<use>>) -->
+        <mxCell id="24" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="6" target="11">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Repositories -> Models (<<use>>) -->
+        <mxCell id="25" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="7" target="8">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Queues & Workers -> Adapters (<<use>>) -->
+        <mxCell id="26" value="«use»" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;endArrow=open;endFill=0;fontSize=11;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="10" target="11">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

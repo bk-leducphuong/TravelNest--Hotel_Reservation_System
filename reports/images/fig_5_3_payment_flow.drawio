@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="Payment Flow">
+    <mxGraphModel dx="1400" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1200">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ===== SWIMLANES ===== -->
+        <!-- Người dùng: 240px wide -->
+        <mxCell id="sl1" value="Người dùng" style="swimlane;startSize=36;fillColor=#dbeafe;strokeColor=#3b82f6;fontStyle=1;fontSize=14;fontColor=#1e3a5f;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="240" height="1060" as="geometry"/>
+        </mxCell>
+
+        <!-- TravelNest API: 300px wide -->
+        <mxCell id="sl2" value="TravelNest API" style="swimlane;startSize=36;fillColor=#fff7ed;strokeColor=#f97316;fontStyle=1;fontSize=14;fontColor=#7c2d12;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="40" width="300" height="1060" as="geometry"/>
+        </mxCell>
+
+        <!-- Stripe: 260px wide -->
+        <mxCell id="sl3" value="Stripe" style="swimlane;startSize=36;fillColor=#f0fdf4;strokeColor=#22c55e;fontStyle=1;fontSize=14;fontColor=#14532d;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="40" width="260" height="1060" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== NGƯỜI DÙNG LANE ===== -->
+
+        <!-- Initial node (filled circle) -->
+        <mxCell id="n_start" value="" style="ellipse;aspect=fixed;fillColor=#1e3a5f;strokeColor=#1e3a5f;" vertex="1" parent="sl1">
+          <mxGeometry x="100" y="50" width="20" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- Step U1: Bắt đầu thanh toán -->
+        <mxCell id="u1" value="Bắt đầu thanh toán" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#3b82f6;fontStyle=0;fontSize=12;fontColor=#1e40af;" vertex="1" parent="sl1">
+          <mxGeometry x="20" y="110" width="190" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Step U2: Nhập thông tin thẻ -->
+        <mxCell id="u2" value="Nhập thông tin thẻ&#xa;(Stripe Elements)" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#3b82f6;fontStyle=0;fontSize=12;fontColor=#1e40af;" vertex="1" parent="sl1">
+          <mxGeometry x="20" y="210" width="190" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Step U3: Xác nhận thanh toán -->
+        <mxCell id="u3" value="Xác nhận thanh toán" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#3b82f6;fontStyle=0;fontSize=12;fontColor=#1e40af;" vertex="1" parent="sl1">
+          <mxGeometry x="20" y="310" width="190" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Step U4: Nhận email xác nhận -->
+        <mxCell id="u4" value="Nhận email xác nhận" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#3b82f6;fontStyle=0;fontSize=12;fontColor=#1e40af;" vertex="1" parent="sl1">
+          <mxGeometry x="20" y="900" width="190" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Final node (bullseye) -->
+        <mxCell id="n_end_outer" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#1e3a5f;strokeWidth=3;" vertex="1" parent="sl1">
+          <mxGeometry x="100" y="990" width="24" height="24" as="geometry"/>
+        </mxCell>
+        <mxCell id="n_end_inner" value="" style="ellipse;aspect=fixed;fillColor=#1e3a5f;strokeColor=#1e3a5f;" vertex="1" parent="sl1">
+          <mxGeometry x="108" y="998" width="8" height="8" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== TRAVELNEST API LANE ===== -->
+
+        <!-- Step A1: Tạo PaymentIntent + IdempotencyKey -->
+        <mxCell id="a1" value="Tạo PaymentIntent&#xa;+ IdempotencyKey" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#f97316;fontStyle=0;fontSize=12;fontColor=#7c2d12;" vertex="1" parent="sl2">
+          <mxGeometry x="20" y="310" width="195" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision: Key tồn tại? (server-side, API lane) -->
+        <mxCell id="a_dec" value="Key tồn tại?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontSize=12;fontColor=#78350f;verticalAlign=middle;" vertex="1" parent="sl2">
+          <mxGeometry x="60" y="390" width="120" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Step A2: Lưu IdempotencyKey -->
+        <mxCell id="a2" value="Lưu IdempotencyKey&#xa;(status: processing)" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#f97316;fontStyle=0;fontSize=12;fontColor=#7c2d12;" vertex="1" parent="sl2">
+          <mxGeometry x="20" y="490" width="195" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Step A3: Nhận webhook -->
+        <mxCell id="a3" value="Nhận webhook&#xa;payment_intent.succeeded" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#f97316;fontStyle=0;fontSize=12;fontColor=#7c2d12;" vertex="1" parent="sl2">
+          <mxGeometry x="20" y="630" width="195" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision: Thanh toán thành công? (server-side, API lane) -->
+        <mxCell id="a_dec2" value="Thanh toán&#xa;thành công?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontSize=12;fontColor=#78350f;verticalAlign=middle;" vertex="1" parent="sl2">
+          <mxGeometry x="55" y="710" width="130" height="64" as="geometry"/>
+        </mxCell>
+
+        <!-- Step A4: Cập nhật Payment + LedgerEntries -->
+        <mxCell id="a4" value="Cập nhật Payment&#xa;+ LedgerEntries" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#f97316;fontStyle=0;fontSize=12;fontColor=#7c2d12;" vertex="1" parent="sl2">
+          <mxGeometry x="20" y="820" width="195" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Step A5: Cập nhật Booking + RoomInventory -->
+        <mxCell id="a5" value="Cập nhật Booking&#xa;+ RoomInventory" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#f97316;fontStyle=0;fontSize=12;fontColor=#7c2d12;" vertex="1" parent="sl2">
+          <mxGeometry x="20" y="900" width="195" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Step A6: Gửi email xác nhận + NATS event -->
+        <mxCell id="a6" value="Gửi email xác nhận&#xa;+ NATS event" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#f97316;fontStyle=0;fontSize=12;fontColor=#7c2d12;" vertex="1" parent="sl2">
+          <mxGeometry x="20" y="980" width="195" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== STRIPE LANE ===== -->
+
+        <!-- Step S1: Nhận PaymentIntent -->
+        <mxCell id="s1" value="Nhận PaymentIntent&#xa;(từ API)" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#22c55e;fontStyle=0;fontSize=12;fontColor=#14532d;" vertex="1" parent="sl3">
+          <mxGeometry x="20" y="490" width="195" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Step S2: Xử lý thanh toán -->
+        <mxCell id="s2" value="Xử lý thanh toán&#xa;(ngân hàng)" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#22c55e;fontStyle=0;fontSize=12;fontColor=#14532d;" vertex="1" parent="sl3">
+          <mxGeometry x="20" y="580" width="195" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- Step S3: Gửi webhook -->
+        <mxCell id="s3" value="Gửi webhook&#xa;về TravelNest" style="rounded=1;arcSize=15;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#22c55e;fontStyle=0;fontSize=12;fontColor=#14532d;" vertex="1" parent="sl3">
+          <mxGeometry x="20" y="630" width="195" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== EDGES — INTRA-LANE ===== -->
+
+        <!-- User lane: start node -> U1 -->
+        <mxCell id="e_s_u1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#374151;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="sl1" source="n_start" target="u1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- User lane: U1 -> U2 -->
+        <mxCell id="e_u1_u2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#374151;strokeWidth=1.5;" edge="1" parent="sl1" source="u1" target="u2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- User lane: U2 -> U3 -->
+        <mxCell id="e_u2_u3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#374151;strokeWidth=1.5;" edge="1" parent="sl1" source="u2" target="u3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- User lane: U4 -> final node -->
+        <mxCell id="e_u4_end" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#374151;strokeWidth=1.5;" edge="1" parent="sl1" source="u4" target="n_end_outer">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- API lane: A1 -> A_dec -->
+        <mxCell id="e_a1_adec" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#92400e;strokeWidth=1.5;" edge="1" parent="sl2" source="a1" target="a_dec">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- API lane: A_dec -> A2 (No branch: key does not exist) -->
+        <mxCell id="e_adec_a2" value="Không" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#92400e;strokeWidth=1.5;fontSize=11;fontColor=#78350f;fontStyle=2;" edge="1" parent="sl2" source="a_dec" target="a2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- API lane: A_dec -> return (Yes: duplicate, skip) — exits right with label -->
+        <mxCell id="e_adec_skip" value="Có (bỏ qua)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#92400e;strokeWidth=1.5;fontSize=11;fontColor=#78350f;fontStyle=2;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="sl2" source="a_dec">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="260" y="420"/>
+              <mxPoint x="260" y="360"/>
+              <mxPoint x="117" y="360"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- API lane: A2 -> (wait for Stripe, no direct edge; Stripe webhook triggers A3) -->
+
+        <!-- API lane: A3 -> A_dec2 -->
+        <mxCell id="e_a3_adec2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#92400e;strokeWidth=1.5;" edge="1" parent="sl2" source="a3" target="a_dec2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- API lane: A_dec2 -> A4 (Yes) -->
+        <mxCell id="e_adec2_a4" value="Có" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#92400e;strokeWidth=1.5;fontSize=11;fontColor=#78350f;fontStyle=2;" edge="1" parent="sl2" source="a_dec2" target="a4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- API lane: A4 -> A5 -->
+        <mxCell id="e_a4_a5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#92400e;strokeWidth=1.5;" edge="1" parent="sl2" source="a4" target="a5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- API lane: A5 -> A6 -->
+        <mxCell id="e_a5_a6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#92400e;strokeWidth=1.5;" edge="1" parent="sl2" source="a5" target="a6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Stripe lane: S1 -> S2 -->
+        <mxCell id="e_s1_s2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#15803d;strokeWidth=1.5;" edge="1" parent="sl3" source="s1" target="s2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Stripe lane: S2 -> S3 -->
+        <mxCell id="e_s2_s3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#15803d;strokeWidth=1.5;" edge="1" parent="sl3" source="s2" target="s3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== CROSS-LANE EDGES (parented to root cell "1") ===== -->
+
+        <!-- U3 -> A1: POST /payments (confirm payment triggers API) -->
+        <mxCell id="cx_u3_a1" value="POST /payments/confirm" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6d28d9;strokeWidth=2;fontStyle=2;fontSize=11;fontColor=#4c1d95;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="u3" target="a1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- A2 -> S1: createPaymentIntent (API sends to Stripe after saving key) -->
+        <mxCell id="cx_a2_s1" value="createPaymentIntent" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6d28d9;strokeWidth=2;fontStyle=2;fontSize=11;fontColor=#4c1d95;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="a2" target="s1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- U2 -> S1: tokenize card (Stripe Elements sends card data to Stripe) -->
+        <mxCell id="cx_u2_s1" value="tokenize card data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6d28d9;strokeWidth=2;fontStyle=2;fontSize=11;fontColor=#4c1d95;dashed=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="u2" target="s1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="570" y="246"/>
+              <mxPoint x="650" y="246"/>
+              <mxPoint x="650" y="497"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- S3 -> A3: webhook event (Stripe calls TravelNest webhook endpoint) -->
+        <mxCell id="cx_s3_a3" value="webhook: payment_intent.succeeded" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6d28d9;strokeWidth=2;fontStyle=2;fontSize=11;fontColor=#4c1d95;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="s3" target="a3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- A6 -> U4: email notification (API emails user) -->
+        <mxCell id="cx_a6_u4" value="email xác nhận" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#6d28d9;strokeWidth=2;fontStyle=2;fontSize=11;fontColor=#4c1d95;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="a6" target="u4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

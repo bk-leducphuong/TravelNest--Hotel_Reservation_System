@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="Page-1">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1060">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ============================================================ -->
+        <!-- TITLE -->
+        <!-- ============================================================ -->
+        <mxCell id="2" value="Strangler Fig Migration Pattern" style="text;html=1;align=center;verticalAlign=middle;fontStyle=1;fontSize=16;fontColor=#1a1a1a;" vertex="1" parent="1">
+          <mxGeometry x="200" y="20" width="1100" height="36" as="geometry" />
+        </mxCell>
+
+        <mxCell id="3" value="TravelNest: Incremental Monolith-to-Microservices Migration" style="text;html=1;align=center;verticalAlign=middle;fontStyle=2;fontSize=12;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="200" y="52" width="1100" height="24" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- ROW 1: CLIENT LAYER (y=90..150) -->
+        <!-- ============================================================ -->
+        <mxCell id="10" value="Client Layer" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f0f0f0;strokeColor=#aaaaaa;verticalAlign=top;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="90" width="1440" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="11" value="Web App" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="420" y="105" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="12" value="Mobile App" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="680" y="105" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="13" value="Third-party API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="940" y="105" width="130" height="40" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- ROW 2: API GATEWAY / FACADE (y=220..300) -->
+        <!-- ============================================================ -->
+        <mxCell id="20" value="API Gateway / Strangler Facade&#xa;(Routes traffic: extracted services OR legacy monolith)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="350" y="230" width="790" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- ROW 3: COMPLETED MICROSERVICES (y=370..490) -->
+        <!-- ============================================================ -->
+        <!-- Group border for completed -->
+        <mxCell id="30" value="Extracted Microservices — Completed" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="370" width="740" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="31" value="Phase 1&#xa;NATS Infrastructure" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#82b366;strokeColor=#4d7a3a;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="50" y="400" width="150" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="32" value="Phase 2&#xa;Analytics Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#82b366;strokeColor=#4d7a3a;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="220" y="400" width="150" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="33" value="Phase 3&#xa;Media Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#82b366;strokeColor=#4d7a3a;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="390" y="400" width="150" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="34" value="Phase 4&#xa;Notification Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#82b366;strokeColor=#4d7a3a;fontColor=#ffffff;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="560" y="400" width="150" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- ROW 3: LEGACY MONOLITH (center) -->
+        <!-- ============================================================ -->
+        <mxCell id="50" value="Legacy Monolith (Shrinking)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;verticalAlign=top;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="790" y="370" width="420" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="51" value="TravelNest Monolith&#xa;&#xa;Hotels | Rooms | Users&#xa;Reservations | Reviews&#xa;(Payments, Identity, Search&#xa;Bookings, Catalog — to extract)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b85450;strokeColor=#6b2e2e;fontColor=#ffffff;fontStyle=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="810" y="395" width="380" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- ROW 3: PLANNED NEAR-TERM (y=370..490) -->
+        <!-- ============================================================ -->
+        <mxCell id="40" value="Planned — Near-term Phases" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;verticalAlign=top;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="370" width="240" height="150" as="geometry" />
+        </mxCell>
+
+        <mxCell id="41" value="Phase 5&#xa;Search Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontStyle=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="400" width="110" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="42" value="Phase 6&#xa;Catalog Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontStyle=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1370" y="400" width="80" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- ROW 4: FUTURE EXTRACTIONS (y=590..700) -->
+        <!-- ============================================================ -->
+        <mxCell id="60" value="Future Extraction Phases" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;verticalAlign=top;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="590" width="1440" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="61" value="Phase 7&#xa;Booking Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="200" y="620" width="150" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="62" value="Phase 8&#xa;Payment Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="500" y="620" width="150" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="63" value="Phase 9&#xa;Identity Service" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=0;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="800" y="620" width="150" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="64" value="Further phases TBD&#xa;(as monolith shrinks)" style="text;html=1;align=center;verticalAlign=middle;fontSize=11;fontColor=#7a4f93;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="620" width="250" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- LEGEND (y=750..870) -->
+        <!-- ============================================================ -->
+        <mxCell id="70" value="Legend" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#666666;verticalAlign=top;fontStyle=1;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="30" y="760" width="740" height="130" as="geometry" />
+        </mxCell>
+
+        <mxCell id="71" value="" style="rounded=1;html=1;fillColor=#82b366;strokeColor=#4d7a3a;" vertex="1" parent="1">
+          <mxGeometry x="50" y="792" width="24" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="72" value="Completed: Successfully extracted microservice" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="84" y="789" width="300" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="73" value="" style="rounded=1;html=1;fillColor=#f5f5f5;strokeColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="50" y="818" width="24" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="74" value="Planned: Near-term extraction phase" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="84" y="815" width="300" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="75" value="" style="rounded=1;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="50" y="844" width="24" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="76" value="Future: Later-stage planned extraction" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="84" y="841" width="300" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="77" value="" style="rounded=1;html=1;fillColor=#b85450;strokeColor=#6b2e2e;" vertex="1" parent="1">
+          <mxGeometry x="420" y="792" width="24" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="78" value="Legacy Monolith (actively shrinking over time)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="454" y="789" width="300" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="79" value="" style="rounded=1;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="420" y="818" width="24" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="80" value="API Gateway / Strangler Facade (traffic router)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="454" y="815" width="300" height="22" as="geometry" />
+        </mxCell>
+
+        <mxCell id="81" value="" style="rounded=1;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="420" y="844" width="24" height="16" as="geometry" />
+        </mxCell>
+        <mxCell id="82" value="Client applications (web, mobile, API)" style="text;html=1;align=left;verticalAlign=middle;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="454" y="841" width="300" height="22" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- ANNOTATION BOX -->
+        <!-- ============================================================ -->
+        <mxCell id="85" value="Migration approach: Each phase extracts one domain from the monolith.&#xa;The Facade intercepts all traffic — routing to new services when ready, falling back to the monolith otherwise.&#xa;Solid arrows = active routing. Dashed arrows = planned future routing." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f0c030;fontSize=11;verticalAlign=middle;align=left;" vertex="1" parent="1">
+          <mxGeometry x="790" y="760" width="680" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- EDGES -->
+        <!-- ============================================================ -->
+
+        <!-- Clients -> API Gateway (solid, HTTP/REST) -->
+        <mxCell id="90" value="HTTP/REST" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;fontSize=11;" edge="1" parent="1" source="11" target="20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="91" value="HTTP/REST" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=11;" edge="1" parent="1" source="12" target="20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="92" value="HTTP/REST" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;fontSize=11;" edge="1" parent="1" source="13" target="20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- API Gateway -> Completed Microservices (solid arrows - active routing) -->
+        <mxCell id="93" value="Routes to" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.15;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#82b366;fontColor=#2d5a1b;fontSize=11;" edge="1" parent="1" source="20" target="31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="94" value="Routes to" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#82b366;fontColor=#2d5a1b;fontSize=11;" edge="1" parent="1" source="20" target="32">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="95" value="Routes to" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.35;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#82b366;fontColor=#2d5a1b;fontSize=11;" edge="1" parent="1" source="20" target="33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="96" value="Routes to" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.45;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#82b366;fontColor=#2d5a1b;fontSize=11;" edge="1" parent="1" source="20" target="34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- API Gateway -> Legacy Monolith (solid, red - still active) -->
+        <mxCell id="97" value="Proxies unextracted" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.6;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#b85450;fontColor=#b85450;fontStyle=1;fontSize=11;" edge="1" parent="1" source="20" target="51">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- API Gateway -> Planned (dashed, grey) -->
+        <mxCell id="98" value="Future routing" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.85;exitY=1;exitDx=0;exitDy=0;entryX=0.3;entryY=0;entryDx=0;entryDy=0;dashed=1;strokeColor=#999999;fontColor=#999999;fontSize=11;" edge="1" parent="1" source="20" target="41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="99" value="Future routing" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.92;exitY=1;exitDx=0;exitDy=0;entryX=0.7;entryY=0;entryDx=0;entryDy=0;dashed=1;strokeColor=#999999;fontColor=#999999;fontSize=11;" edge="1" parent="1" source="20" target="42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Monolith -> Future Extractions (dashed purple - to be extracted) -->
+        <mxCell id="101" value="To be extracted" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.3;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;fontSize=11;" edge="1" parent="1" source="51" target="61">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="102" value="To be extracted" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;fontSize=11;" edge="1" parent="1" source="51" target="62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="103" value="To be extracted" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.7;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;strokeColor=#9673a6;fontColor=#9673a6;fontSize=11;" edge="1" parent="1" source="51" target="63">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
