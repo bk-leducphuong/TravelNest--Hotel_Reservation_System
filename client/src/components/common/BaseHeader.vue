@@ -10,13 +10,7 @@
           <ul>
             <li><strong>USD</strong></li>
             <li @click="openLanguagePopup()">
-              <img
-                v-if="getUserLanguage"
-                :src="`https://flagcdn.com/w40/${getUserLanguage.split('-')[1].toLowerCase()}.png`"
-                :style="imageStyle"
-                alt="Language"
-              />
-              <img v-else src="https://flagcdn.com/w40/us.png" :style="imageStyle" alt="English" />
+            <img :src="flagUrl" :style="imageStyle" alt="Language" />
             </li>
             <li><i class="fa-regular fa-circle-question"></i></li>
             <!-- Slot for additional navigation items -->
@@ -33,13 +27,7 @@
         <ul>
           <li><strong>USD</strong></li>
           <li @click="openLanguagePopup()">
-            <img
-              v-if="getUserLanguage"
-              :src="`https://flagcdn.com/w40/${getUserLanguage.split('-')[1].toLowerCase()}.png`"
-              :style="imageStyle"
-              alt="Language"
-            />
-            <img v-else src="https://flagcdn.com/w40/us.png" :style="imageStyle" alt="English" />
+            <img :src="flagUrl" :style="imageStyle" alt="Language" />
           </li>
           <li><i class="fa-regular fa-circle-question"></i></li>
           <!-- Slot for additional navigation items -->
@@ -76,6 +64,13 @@
     },
     computed: {
       ...mapGetters('user', ['getUserLanguage']),
+      flagUrl() {
+        const lang = this.getUserLanguage;
+        if (!lang) return 'https://flagcdn.com/w40/us.png';
+        const parts = lang.split('-');
+        const countryCode = parts[1] || parts[0];
+        return `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
+      },
       imageStyle() {
         return {
           width: '20px',

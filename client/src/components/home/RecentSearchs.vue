@@ -18,12 +18,17 @@
               @click="redirectToSearchResults(search)"
             >
               <div class="search-image">
-                <img :src="searchImageSrc(search)" :alt="displayLocation(search)" />
+                <img
+                  v-if="searchImageSrc(search)"
+                  :src="searchImageSrc(search)"
+                  :alt="displayLocation(search)"
+                  @error="onImageError"
+                />
               </div>
               <div class="search-content">
                 <h2 class="search-title">{{ displayLocation(search) }}</h2>
                 <p class="search-details">
-                  From {{ formatDate(search.checkIn) }} to {{ formatDate(search.checkOut) }}
+                  From {{ formatDate(getCheckIn(search)) }} to {{ formatDate(getCheckOut(search)) }}
                 </p>
               </div>
               <button
@@ -44,6 +49,7 @@
   import { mapActions, mapGetters } from 'vuex';
   import { SearchService } from '@/services/search.service';
   import errorHandler from '@/request/errorHandler.js';
+  import { getImageUrl } from '@/utils/images';
 
   export default {
     name: 'RecentSearchs',
@@ -105,8 +111,16 @@
       },
       displayLocation(search) {
         if (!search) return '';
-        const parts = [search.city, search.country].filter(Boolean);
+        const city = search.city ?? search.location ?? '';
+        const country = search.country ?? '';
+        const parts = [city, country].filter(Boolean);
         return parts.length ? parts.join(', ') : '—';
+      },
+      getCheckIn(search) {
+        return search?.checkIn ?? search?.check_in_date ?? '';
+      },
+      getCheckOut(search) {
+        return search?.checkOut ?? search?.check_out_date ?? '';
       },
       formatDate(dateStr) {
         if (!dateStr) return '—';
@@ -114,12 +128,16 @@
         return new Date(d).toLocaleDateString('vi-VN');
       },
       searchKey(search, index) {
+        const key = search.city ?? search.location ?? '';
+        const checkIn = this.getCheckIn(search);
         const created = search.createdAt ?? search.searchedAt ?? index;
-        return `${search.city ?? ''}-${search.checkIn ?? ''}-${created}`;
+        return `${key}-${checkIn}-${created}`;
       },
       searchImageSrc(search) {
-        const city = search.city || 'default';
-        return `assets/vietnam_city/${city}.jpg`;
+        return getImageUrl(search?.image?.objectKey) || '';
+      },
+      onImageError(event) {
+        event.target.style.display = 'none';
       },
       ...mapActions('search', [
         'updateLocation',
@@ -130,10 +148,10 @@
         'updateRooms',
       ]),
       redirectToSearchResults(search) {
-        const checkIn = search.checkIn ? String(search.checkIn).split('T')[0] : '';
-        const checkOut = search.checkOut ? String(search.checkOut).split('T')[0] : '';
-        const location = search.city ?? search.country ?? '';
-        let numberOfDays = search.nights;
+        const checkIn = this.getCheckIn(search).split('T')[0];
+        const checkOut = this.getCheckOut(search).split('T')[0];
+        const location = search.city ?? search.location ?? search.country ?? '';
+        let numberOfDays = search.nights ?? search.number_of_days;
         if (numberOfDays == null && checkIn && checkOut) {
           const a = new Date(checkIn);
           const b = new Date(checkOut);

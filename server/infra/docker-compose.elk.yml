@@ -6,7 +6,7 @@ services:
     env_file: .env
     environment:
       - discovery.type=single-node
-      - 'ES_JAVA_OPTS=-Xms2g -Xmx2g'
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
       - xpack.security.enabled=true
       - ELASTIC_PASSWORD=${ELASTICSEARCH_PASSWORD}
       - xpack.security.http.ssl.enabled=false
@@ -16,8 +16,8 @@ services:
         soft: -1
         hard: -1
     ports:
-      - '9200:9200'
-      - '9300:9300'
+      - "9200:9200"
+      - "9300:9300"
     volumes:
       - ./elasticsearch/data:/usr/share/elasticsearch/data
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
@@ -26,29 +26,29 @@ services:
     healthcheck:
       test:
         [
-          'CMD-SHELL',
-          'curl -u elastic:${ELASTICSEARCH_PASSWORD} -f http://localhost:9200/_cluster/health || exit 1',
+          "CMD-SHELL",
+          "curl -u elastic:${ELASTICSEARCH_PASSWORD} -f http://localhost:9200/_cluster/health || exit 1",
         ]
       interval: 30s
       timeout: 10s
       retries: 5
 
-  # kibana:
-  #   image: docker.elastic.co/kibana/kibana:8.11.3
-  #   container_name: kibana
-  #   env_file: .env
-  #   environment:
-  #     - ELASTICSEARCH_HOSTS=${ELASTICSEARCH_HOSTS}
-  #     # Kibana 8+ cannot use "elastic" superuser; must use kibana_system
-  #     - ELASTICSEARCH_USERNAME=kibana_system
-  #     - ELASTICSEARCH_PASSWORD=${KIBANA_SYSTEM_PASSWORD}
-  #   ports:
-  #     - '5601:5601'
-  #   networks:
-  #     - elk
-  #   depends_on:
-  #     elasticsearch:
-  #       condition: service_healthy
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.11.3
+    container_name: kibana
+    env_file: .env
+    environment:
+      - ELASTICSEARCH_HOSTS=${ELASTICSEARCH_HOSTS}
+      # Kibana 8+ cannot use "elastic" superuser; must use kibana_system
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - ELASTICSEARCH_PASSWORD=${KIBANA_SYSTEM_PASSWORD}
+    ports:
+      - "5601:5601"
+    networks:
+      - elk
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
   #
   # logstash:
   #   image: docker.elastic.co/logstash/logstash:8.11.3

@@ -306,7 +306,13 @@ services:
     image: quay.io/keycloak/keycloak:26.0
     container_name: travelnest-keycloak-test
     restart: unless-stopped
-    command: ["start-dev", "--http-enabled=true", "--hostname-strict=false"]
+    command:
+      [
+        "start-dev",
+        "--http-enabled=true",
+        "--hostname-strict=false",
+        "--import-realm",
+      ]
     environment:
       KC_DB: mysql
       KC_DB_URL_HOST: mysql
@@ -317,6 +323,8 @@ services:
       KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN_USER:-admin}
       KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
       KC_PROXY_HEADERS: xforwarded
+    volumes:
+      - ./keycloak/travelnest-realm.json:/opt/keycloak/data/import/travelnest-realm.json:ro
     depends_on:
       mysql:
         condition: service_healthy

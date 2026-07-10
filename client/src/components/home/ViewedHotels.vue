@@ -2,6 +2,12 @@
   <div class="hotel-container container" v-if="viewedHotels.length > 0">
     <h2 class="h2">{{ $t('userHome.viewedHotels') }}</h2>
     <div class="slider-container">
+      <Loading
+        v-model:active="isLoading"
+        :can-cancel="true"
+        :color="`#003b95`"
+        :is-full-page="false"
+      />
       <ElCarousel
         :interval="0"
         :arrow="groupedHotels.length > 1 ? 'hover' : 'never'"
@@ -43,6 +49,8 @@
 
 <script>
   import { mapActions, mapGetters } from 'vuex';
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/css/index.css';
   import SavedHotelIcon from '@/components/SavedHotelIcon.vue';
   import { HotelService } from '@/services/hotel.service';
   import errorHandler from '@/request/errorHandler.js';
@@ -51,11 +59,13 @@
   export default {
     name: 'ViewedHotels',
     components: {
+      Loading,
       SavedHotelIcon,
     },
     data() {
       return {
         viewedHotels: [],
+        isLoading: false,
         windowWidth: typeof window !== 'undefined' ? window.innerWidth : 1200,
       };
     },
@@ -114,18 +124,31 @@
         this.$router.push({ name: 'HotelDetails', params: { hotel_id: hotelId } });
       },
       async loadViewedHotels() {
-        if (!this.isUserAuthenticated) {
-          this.viewedHotels = [];
-          return;
-        }
         try {
-          // GET /api/v1/hotels/recently-viewed (authenticated only)
+          this.isLoading = true;
+
+          if (!this.isUserAuthenticated) {
+            const raw = localStorage.getItem('viewedHotels');
+            const ids = raw ? JSON.parse(raw) : [];
+            if (!Array.isArray(ids) || ids.length === 0) {
+              this.viewedHotels = [];
+              return;
+            }
+
+            const response = await HotelService.getHotelsByIds(ids);
+            const list = response?.data ?? response ?? [];
+            this.viewedHotels = Array.isArray(list) ? list : [];
+            return;
+          }
+
           const response = await HotelService.getRecentlyViewed(10);
           const list = response?.data ?? response ?? [];
           this.viewedHotels = Array.isArray(list) ? list : [];
         } catch (error) {
           errorHandler(error);
           this.viewedHotels = [];
+        } finally {
+          this.isLoading = false;
         }
       },
     },

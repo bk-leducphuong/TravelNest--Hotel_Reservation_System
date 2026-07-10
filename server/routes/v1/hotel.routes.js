@@ -6,6 +6,7 @@ const {
   searchRooms,
   getHotelPolicies,
   getNearbyPlaces,
+  getHotelsByIds,
 } = require('@controllers/v1/hotel.controller.js');
 const { authenticate, optionalAuthenticate } = require('@middlewares/auth.middleware');
 const validate = require('@middlewares/validate.middleware');
@@ -83,6 +84,8 @@ router.get(
   validate(hotelSchema.getRecentlyViewedHotels),
   getRecentlyViewedHotels
 );
+
+router.post('/batch', getHotelsByIds);
 
 /**
  * @swagger

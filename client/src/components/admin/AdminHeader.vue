@@ -27,7 +27,14 @@ export default {
       'getCurrentManagingHotelInformation',
       'getCurrentManagingHotelId'
     ]),
-    ...mapGetters('user', ['getUserLanguage'])
+    ...mapGetters('user', ['getUserLanguage']),
+    flagUrl() {
+      const lang = this.getUserLanguage;
+      if (!lang) return 'https://flagcdn.com/w40/us.png';
+      const parts = lang.split('-');
+      const countryCode = parts[1] || parts[0];
+      return `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
+    },
   },
   watch: {
     notifications(newValue) {
@@ -183,10 +190,7 @@ export default {
       </div>
       <div class="function-button">
         <div @click="openLanguagePopup()" class="language-btn">
-          <img
-            :src="`https://flagcdn.com/w40/${getUserLanguage.split('-')[1].toLowerCase()}.png`"
-            alt="Vietnam"
-          />
+          <img :src="flagUrl" alt="Vietnam" />
         </div>
 
         <div>

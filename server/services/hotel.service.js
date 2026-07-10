@@ -93,6 +93,13 @@ class HotelService {
   }
 
   /**
+   * Get enriched hotel cards from a list of hotel IDs (public).
+   */
+  async getHotelsByIds(hotelIds) {
+    return this._enrichHotelCardsByIds(hotelIds);
+  }
+
+  /**
    * Get recently viewed hotels for a user from Redis and enrich from MySQL.
    */
   async getRecentlyViewedHotels(userId, limit = 10) {
