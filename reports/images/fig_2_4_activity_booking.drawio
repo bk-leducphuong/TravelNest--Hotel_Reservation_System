@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="26.0.0">
+  <diagram name="Page-1">
+    <mxGraphModel dx="1400" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1540" pageHeight="1500">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!--
+          All nodes use ABSOLUTE coordinates (parent=1).
+          Swimlanes are visual wrappers only.
+
+          Lane X ranges (absolute):
+            Người dùng:     x=20..319   center=170
+            TravelNest:     x=330..689  center=510
+            Stripe:         x=700..979  center=840
+
+          Vertical rows (absolute y, nodes are 50px tall, 20px gap):
+            R_init  y=80    Initial node (30x30, center y=95)
+            R1      y=130   Nhập điểm đến
+            R2      y=240   Nhấn Tìm kiếm  |  Truy vấn ES
+            R3      y=350   Decision: Còn phòng? (70px tall)
+            Có path:
+              R4a   y=470   Chọn khách sạn & phòng (user)
+              R5a   y=570   Nhấn Đặt phòng  |  Tạo Hold (TN)
+              R6a   y=670   Xem tóm tắt  |  Chuyển đến Stripe
+              R7a   y=770   Nhập thông tin thẻ  |  Xử lý thanh toán (Stripe)
+              R8a   y=870   (Gửi webhook Stripe)  |  Nhận webhook (TN)
+              R9a   y=970   Decision: Thanh toán thành công? (70px tall)
+              Có path:
+                R10a  y=1090  Chuyển Hold thành Booking
+                R11a  y=1200  Fork bar (8px)
+                R12a  y=1228  Gửi email  |  Cập nhật RI
+                R13a  y=1298  Join bar (8px)
+                R14a  y=1326  Final node success (40px)
+              Không path:
+                R10b  y=980   Thông báo thất bại (user, at same y as diamond center)
+                R11b  y=1060  Final node payment-failed (user)
+            Không path:
+              R4b   y=470   Thông báo không còn phòng (TN)
+              R4c   y=540   Final node no-room (TN)
+
+          Note: "Xác nhận thanh toán" shown in user lane at R10a y=1090
+        -->
+
+        <!-- SWIMLANE: Người dùng -->
+        <mxCell id="2" value="Người dùng" style="swimlane;startSize=40;fillColor=#dae8fc;strokeColor=#6c8ebf;whiteSpace=wrap;html=1;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="300" height="1460" as="geometry"/>
+        </mxCell>
+
+        <!-- SWIMLANE: Hệ thống TravelNest -->
+        <mxCell id="3" value="Hệ thống TravelNest" style="swimlane;startSize=40;fillColor=#ffe6cc;strokeColor=#d79b00;whiteSpace=wrap;html=1;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="20" width="360" height="1460" as="geometry"/>
+        </mxCell>
+
+        <!-- SWIMLANE: Stripe -->
+        <mxCell id="4" value="Stripe" style="swimlane;startSize=40;fillColor=#f5f5f5;strokeColor=#666666;whiteSpace=wrap;html=1;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="20" width="280" height="1460" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== INITIAL NODE ===== -->
+        <mxCell id="100" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="155" y="80" width="30" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== R1: Nhập điểm đến ===== -->
+        <mxCell id="5" value="Nhập điểm đến,&#xa;ngày, số khách" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="130" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== R2: Nhấn Tìm kiếm | Truy vấn ES ===== -->
+        <mxCell id="6" value="Nhấn Tìm kiếm" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="240" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="12" value="Truy vấn Elasticsearch&#xa;+ kiểm tra phòng trống" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="410" y="240" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== R3: Decision — Còn phòng? ===== -->
+        <mxCell id="21" value="Còn phòng?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="340" width="160" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== R4a: Chọn ks & phòng (user, Có path) ===== -->
+        <mxCell id="7" value="Chọn khách sạn &amp; phòng" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="470" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== R4b: Thông báo no-room (TN, Không path) ===== -->
+        <mxCell id="106" value="Thông báo&#xa;không còn phòng" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="410" y="470" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- R4c: Final node — no-room (y=540, no overlap with R5a Tạo Hold at y=570) -->
+        <mxCell id="107" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="490" y="540" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="108" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="500" y="550" width="20" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== R5a: Nhấn Đặt phòng (user) | Tạo Hold (TN) ===== -->
+        <mxCell id="8" value="Nhấn Đặt phòng" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="610" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="13" value="Tạo Hold&#xa;(giữ chỗ 15 phút)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="410" y="610" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== R6a: Xem tóm tắt (user) | Chuyển đến Stripe (TN) ===== -->
+        <mxCell id="9" value="Xem tóm tắt &amp;&#xa;nhấn Thanh toán" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="710" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="14" value="Chuyển đến&#xa;thanh toán Stripe" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="410" y="710" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== R7a: Nhập thẻ (user) | Xử lý thanh toán (Stripe) ===== -->
+        <mxCell id="10" value="Nhập thông tin thẻ" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="810" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="19" value="Xử lý thanh toán" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="810" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== R8a: Gửi webhook (Stripe) | Nhận webhook (TN) ===== -->
+        <mxCell id="20" value="Gửi webhook xác nhận" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="760" y="910" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="15" value="Nhận webhook&#xa;thanh toán" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="410" y="910" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== R9a: Decision — Thanh toán thành công? ===== -->
+        <mxCell id="22" value="Thanh toán&#xa;thành công?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="430" y="1010" width="160" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== Không path: Thông báo thất bại (user) ===== -->
+        <!-- Positioned at same y center as the diamond (y=1010+35=1045, so box y=1020) -->
+        <mxCell id="103" value="Thông báo&#xa;thanh toán thất bại" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="1020" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Final node — payment failed -->
+        <mxCell id="104" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="150" y="1090" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="105" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="160" y="1100" width="20" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== Có path: Chuyển Hold thành Booking (TN) ===== -->
+        <mxCell id="16" value="Chuyển Hold&#xa;thành Booking" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="410" y="1130" width="200" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Xác nhận thanh toán (user lane, triggered by Chuyển Hold) -->
+        <mxCell id="11" value="Xác nhận&#xa;thanh toán" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="90" y="1210" width="160" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== Fork bar ===== -->
+        <mxCell id="50" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="390" y="1230" width="240" height="8" as="geometry"/>
+        </mxCell>
+
+        <!-- Gửi email xác nhận -->
+        <mxCell id="17" value="Gửi email xác nhận" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="385" y="1258" width="110" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Cập nhật RoomInventory -->
+        <mxCell id="18" value="Cập nhật&#xa;RoomInventory" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="525" y="1258" width="110" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== Join bar ===== -->
+        <mxCell id="51" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="390" y="1328" width="240" height="8" as="geometry"/>
+        </mxCell>
+
+        <!-- ===== FINAL NODE — success ===== -->
+        <mxCell id="101" value="" style="ellipse;aspect=fixed;fillColor=#ffffff;strokeColor=#000000;strokeWidth=3;" vertex="1" parent="1">
+          <mxGeometry x="490" y="1356" width="40" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="102" value="" style="ellipse;aspect=fixed;fillColor=#000000;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1366" width="20" height="20" as="geometry"/>
+        </mxCell>
+
+        <!-- ============================================================ -->
+        <!-- EDGES                                                         -->
+        <!-- ============================================================ -->
+
+        <!-- Initial -> Nhập điểm đến -->
+        <mxCell id="200" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="100" target="5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Nhập điểm đến -> Nhấn Tìm kiếm -->
+        <mxCell id="201" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="5" target="6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Nhấn Tìm kiếm -> Truy vấn ES (cross-lane, manual waypoints) -->
+        <mxCell id="202" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="6" target="12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="265"/>
+              <mxPoint x="320" y="265"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Truy vấn ES -> Còn phòng? -->
+        <mxCell id="203" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="12" target="21">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Còn phòng? --Có--> Chọn ks & phòng (cross-lane to user, exit left side of diamond) -->
+        <mxCell id="206" value="Có" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="21" target="7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="375"/>
+              <mxPoint x="320" y="375"/>
+              <mxPoint x="320" y="495"/>
+              <mxPoint x="250" y="495"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Còn phòng? --Không--> Thông báo không còn phòng (exit bottom) -->
+        <mxCell id="204" value="Không" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="21" target="106">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="410"/>
+              <mxPoint x="510" y="470"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Thông báo no-room -> Final node -->
+        <mxCell id="205" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="106" target="107">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Chọn ks -> Nhấn Đặt phòng -->
+        <mxCell id="207" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="7" target="8">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Nhấn Đặt phòng -> Tạo Hold (cross-lane) -->
+        <mxCell id="208" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="8" target="13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="635"/>
+              <mxPoint x="410" y="635"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Tạo Hold -> Xem tóm tắt (cross-lane back to user) -->
+        <mxCell id="209" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="13" target="9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="410" y="635"/>
+              <mxPoint x="320" y="635"/>
+              <mxPoint x="320" y="735"/>
+              <mxPoint x="250" y="735"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Xem tóm tắt -> Chuyển đến Stripe (cross-lane to TN) -->
+        <mxCell id="210" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="9" target="14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="735"/>
+              <mxPoint x="410" y="735"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Chuyển đến Stripe -> Nhập thông tin thẻ (cross-lane to user) -->
+        <mxCell id="211" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="14" target="10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="410" y="735"/>
+              <mxPoint x="320" y="735"/>
+              <mxPoint x="320" y="835"/>
+              <mxPoint x="250" y="835"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Nhập thông tin thẻ -> Xử lý thanh toán (cross-lane to Stripe) -->
+        <mxCell id="212" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="10" target="19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="690" y="835"/>
+              <mxPoint x="760" y="835"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Xử lý thanh toán -> Gửi webhook xác nhận -->
+        <mxCell id="213" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="19" target="20">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Gửi webhook -> Nhận webhook (cross-lane Stripe to TN) -->
+        <mxCell id="214" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="20" target="15">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="700" y="935"/>
+              <mxPoint x="610" y="935"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Nhận webhook -> Thanh toán thành công? -->
+        <mxCell id="215" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="15" target="22">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Thanh toán thành công? --Không--> Thông báo thất bại (user) -->
+        <mxCell id="216" value="Không" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="22" target="103">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="1045"/>
+              <mxPoint x="320" y="1045"/>
+              <mxPoint x="250" y="1045"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Thông báo thất bại -> Final node -->
+        <mxCell id="217" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="103" target="104">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Thanh toán thành công? --Có--> Chuyển Hold thành Booking -->
+        <mxCell id="218" value="Có" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="22" target="16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="1080"/>
+              <mxPoint x="510" y="1130"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Chuyển Hold thành Booking -> Xác nhận thanh toán (cross-lane to user) -->
+        <mxCell id="219" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="16" target="11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="410" y="1155"/>
+              <mxPoint x="320" y="1155"/>
+              <mxPoint x="320" y="1235"/>
+              <mxPoint x="250" y="1235"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Chuyển Hold thành Booking -> Fork bar -->
+        <mxCell id="220" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=none;" edge="1" parent="1" source="16" target="50">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="1180"/>
+              <mxPoint x="510" y="1230"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Fork bar -> Gửi email xác nhận -->
+        <mxCell id="221" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="50" target="17">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="1238"/>
+              <mxPoint x="440" y="1258"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Fork bar -> Cập nhật RoomInventory -->
+        <mxCell id="222" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="50" target="18">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="1238"/>
+              <mxPoint x="580" y="1258"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Gửi email -> Join bar -->
+        <mxCell id="223" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=none;" edge="1" parent="1" source="17" target="51">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="1308"/>
+              <mxPoint x="440" y="1328"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Cập nhật RoomInventory -> Join bar -->
+        <mxCell id="224" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=none;" edge="1" parent="1" source="18" target="51">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="580" y="1308"/>
+              <mxPoint x="580" y="1328"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Join bar -> Final node -->
+        <mxCell id="225" value="" style="edgeStyle=orthogonalEdgeStyle;html=1;" edge="1" parent="1" source="51" target="101">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="510" y="1336"/>
+              <mxPoint x="510" y="1356"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

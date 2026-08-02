@@ -17,6 +17,14 @@ export const HotelService = {
     return http.get('/hotels/trending', { params });
   },
 
+  /**
+   * POST /v1/hotels/batch
+   * Get enriched hotel cards for a list of hotel IDs (public).
+   */
+  getHotelsByIds(ids) {
+    return http.post('/hotels/batch', { ids });
+  },
+
   getHotelDetails(hotelId, params = {}) {
     return http.get(`/hotels/${hotelId}`, { params });
   },

@@ -139,6 +139,21 @@ const getTrendingHotels = asyncHandler(async (req, res) => {
   res.status(200).json({ data: hotels });
 });
 
+/**
+ * POST /api/v1/hotels/batch
+ * Get enriched hotel cards for a list of hotel IDs (public).
+ */
+const getHotelsByIds = asyncHandler(async (req, res) => {
+  const { ids } = req.body;
+
+  if (!Array.isArray(ids) || ids.length === 0) {
+    return res.status(200).json({ data: [] });
+  }
+
+  const hotels = await hotelService.getHotelsByIds(ids.slice(0, 50));
+  res.status(200).json({ data: hotels });
+});
+
 module.exports = {
   getHotelDetails,
   searchRooms,
@@ -146,4 +161,5 @@ module.exports = {
   getNearbyPlaces,
   getRecentlyViewedHotels,
   getTrendingHotels,
+  getHotelsByIds,
 };

@@ -86,7 +86,7 @@ class SearchService {
     const safeLimit = Math.max(1, Math.min(50, parseInt(limit, 10) || 10));
 
     const raw = await redisClient.zRange(key, 0, safeLimit - 1, { REV: true });
-    return raw
+    const searches = raw
       .map((s) => {
         try {
           return JSON.parse(s);
@@ -95,6 +95,28 @@ class SearchService {
         }
       })
       .filter(Boolean);
+
+    const cityIds = [
+      ...new Set(searches.map((s) => s.cityId).filter(Boolean)),
+    ];
+
+    if (cityIds.length > 0) {
+      const imagesByCityId = await imageRepository.getCityImagesByCityIds(cityIds);
+
+      for (const search of searches) {
+        if (!search.cityId) continue;
+
+        const cityImages = imagesByCityId.get(search.cityId) || [];
+        const primaryImage =
+          cityImages.find((img) => img.isPrimary) || cityImages[0] || null;
+
+        search.image = primaryImage
+          ? { objectKey: primaryImage.objectKey }
+          : null;
+      }
+    }
+
+    return searches;
   }
 
   /**

@@ -81,6 +81,7 @@ class HotelRepository {
             'display_order',
           ],
           required: false,
+          separate: true,
           order: [
             ['is_primary', 'DESC'],
             ['display_order', 'ASC'],

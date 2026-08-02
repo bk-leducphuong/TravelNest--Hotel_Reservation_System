@@ -44,13 +44,13 @@ export default {
       }
 
       searchHistory.push({
-        location: searchData.location,
-        check_in_date: searchData.checkInDate,
-        check_out_date: searchData.checkOutDate,
+        city: searchData.location,
+        checkIn: searchData.checkInDate,
+        checkOut: searchData.checkOutDate,
         adults: searchData.adults,
         children: searchData.children,
         rooms: searchData.rooms,
-        number_of_days: searchData.numberOfDays
+        nights: searchData.numberOfDays
       })
 
       searchHistory.reverse()

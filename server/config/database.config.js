@@ -18,10 +18,22 @@ const sequelize = new Sequelize(
     port: parseInt(process.env.DB_PORT, 10) || 3306,
     logging: false,
     pool: {
-      max: 5,
+      max: 10,
       min: 0,
-      acquire: 30000,
-      idle: 10000,
+      acquire: 60000,
+      idle: 60000,
+      evict: 10000,
+    },
+    retry: {
+      max: 3,
+      match: [
+        /EPIPE/,
+        /ECONNRESET/,
+        /ETIMEDOUT/,
+        /EHOSTUNREACH/,
+        /ENETUNREACH/,
+        /SequelizeConnectionError/,
+      ],
     },
   }
 );

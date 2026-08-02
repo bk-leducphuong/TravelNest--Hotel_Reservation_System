@@ -11,7 +11,7 @@ export const apiBaseURL = configuredBaseURL.endsWith(API_PREFIX)
 
 const http = axios.create({
   baseURL: apiBaseURL,
-  timeout: 10000,
+  timeout: 30000,
   withCredentials: false
 })
 
